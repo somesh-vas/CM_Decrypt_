@@ -10,8 +10,8 @@ extern gf inverse_elements[SYS_N][2 * SYS_T];
 // Change the signature to accept a pointer to an array of fixed size
 int initialisation(unsigned char *secretkeys, unsigned char *ciphertexts, size_t katnum, unsigned char *sk, gf *L, gf *g) {
 
-    FILE *file1 = fopen("../../../../Cipher_Sk/ct_348864.bin", "rb");
-    FILE *file2 = fopen("../../../../Cipher_Sk/sk_348864.bin", "rb");
+    FILE *file1 = fopen("../../../kem/test_vectors/Cipher_Sk/ct_348864.bin", "rb");
+    FILE *file2 = fopen("../../../kem/test_vectors/Cipher_Sk/sk_348864.bin", "rb");
 
     if (file1 == NULL || file2 == NULL) {
         perror("Error opening file");

@@ -1,0 +1,10 @@
+
+=== TIMING SUMMARY (batchSize=50000, total=10) ===
+H2D:   0.009 ms
+Synd:  0.094 ms
+BM:    3.893 ms
+Chien: 52.946 ms
+D2H:   0.016 ms
+Wall:  57.099 ms
+Overhead (Wall - H2D-D2H-Kernels): 0.140 ms
+Throughput: 175.13 ct/s

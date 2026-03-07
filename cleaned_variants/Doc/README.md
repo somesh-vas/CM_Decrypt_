@@ -38,7 +38,7 @@ Run from `cleaned_variants/`.
 - `make clean PARAM=460896`: clean one parameter
 
 ## Input and output
-Input files are read from `Cipher_Sk/` (relative to each param source path):
+Input files are read from `kem/test_vectors/Cipher_Sk/` (repository root):
 - `ct_<param>.bin`
 - `sk_<param>.bin`
 

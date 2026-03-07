@@ -37,6 +37,7 @@ TARGETS = [
     "gpuopt-run",
     "gpuopt-output",
     "gpuopt-clean",
+    "kem-vectors",
 ]
 # Supported values mapped to current project layout.
 PARAMS = ["all", "348864", "460896", "6688128", "8192128"]
@@ -75,28 +76,33 @@ class MakeGui(tk.Tk):
         self.kat_entry = ttk.Entry(top, textvariable=self.kat_var, width=10)
         self.kat_entry.grid(row=1, column=1, padx=(0, 10), sticky="w")
 
-        ttk.Label(top, text="ARCH").grid(row=0, column=2, sticky="w")
+        ttk.Label(top, text="CT_PER_SK").grid(row=0, column=2, sticky="w")
+        self.ct_per_sk_var = tk.StringVar(value="100")
+        self.ct_per_sk_entry = ttk.Entry(top, textvariable=self.ct_per_sk_var, width=10)
+        self.ct_per_sk_entry.grid(row=1, column=2, padx=(0, 10), sticky="w")
+
+        ttk.Label(top, text="ARCH").grid(row=0, column=3, sticky="w")
         self.arch_var = tk.StringVar(value="sm_86")
         self.arch_cb = ttk.Combobox(top, textvariable=self.arch_var, values=ARCHES, width=10)
-        self.arch_cb.grid(row=1, column=2, padx=(0, 10), sticky="w")
+        self.arch_cb.grid(row=1, column=3, padx=(0, 10), sticky="w")
 
-        ttk.Label(top, text="PARAM").grid(row=0, column=3, sticky="w")
+        ttk.Label(top, text="PARAM").grid(row=0, column=4, sticky="w")
         self.param_var = tk.StringVar(value="all")
         self.param_cb = ttk.Combobox(top, textvariable=self.param_var, values=PARAMS, state="readonly", width=10)
-        self.param_cb.grid(row=1, column=3, padx=(0, 10), sticky="w")
+        self.param_cb.grid(row=1, column=4, padx=(0, 10), sticky="w")
 
         self.run_btn = ttk.Button(top, text="Run", command=self.run_make)
-        self.run_btn.grid(row=1, column=4, padx=(0, 8), sticky="w")
+        self.run_btn.grid(row=1, column=5, padx=(0, 8), sticky="w")
 
         self.stop_btn = ttk.Button(top, text="Stop", command=self.stop_make, state="disabled")
-        self.stop_btn.grid(row=1, column=5, padx=(0, 8), sticky="w")
+        self.stop_btn.grid(row=1, column=6, padx=(0, 8), sticky="w")
 
         self.clear_btn = ttk.Button(top, text="Clear Log", command=self.clear_log)
-        self.clear_btn.grid(row=1, column=6, padx=(0, 8), sticky="w")
+        self.clear_btn.grid(row=1, column=7, padx=(0, 8), sticky="w")
 
         self.status_var = tk.StringVar(value="Idle")
         status = ttk.Label(top, textvariable=self.status_var)
-        status.grid(row=1, column=7, sticky="w")
+        status.grid(row=1, column=8, sticky="w")
 
         log_frame = ttk.Frame(self, padding=(10, 0, 10, 10))
         log_frame.pack(fill="both", expand=True)
@@ -129,11 +135,20 @@ class MakeGui(tk.Tk):
         """
         target = self.target_var.get().strip()
         kat = self.kat_var.get().strip()
+        ct_per_sk = self.ct_per_sk_var.get().strip()
         arch = self.arch_var.get().strip()
         param = self.param_var.get().strip()
 
         if not target:
             raise ValueError("Target is required")
+        if target == "kem-vectors":
+            if not ct_per_sk.isdigit() or int(ct_per_sk) <= 0:
+                raise ValueError("CT_PER_SK must be a positive integer")
+            return [[
+                "bash",
+                "-lc",
+                f"cd kem && CT_PER_SK={ct_per_sk} ./generate_all_vectors.sh",
+            ]]
         if not param:
             raise ValueError("PARAM is required")
 

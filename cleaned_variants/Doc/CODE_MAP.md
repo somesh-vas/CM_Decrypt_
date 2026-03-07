@@ -37,7 +37,7 @@ Run from `cleaned_variants/`.
 - Clean one parameter: `make clean PARAM=8192128`
 
 ## Required input files
-The following files must exist in repo root sibling folder `Cipher_Sk/`:
+The following files must exist in `kem/test_vectors/Cipher_Sk/`:
 - `ct_348864.bin`, `sk_348864.bin`
 - `ct_460896.bin`, `sk_460896.bin`
 - `ct_6688128.bin`, `sk_6688128.bin`

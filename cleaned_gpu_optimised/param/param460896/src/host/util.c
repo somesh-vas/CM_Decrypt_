@@ -13,8 +13,8 @@ int initialisation(unsigned char *secretkeys, unsigned char (*ciphertexts)[crypt
 
        
 // Decrypt_/Cipher_Sk/ct_460896.bin
-    FILE *file1 = fopen("../../../../Cipher_Sk/ct_460896.bin", "rb");
-    FILE *file2 = fopen("../../../../Cipher_Sk/sk_460896.bin", "rb");
+    FILE *file1 = fopen("../../../kem/test_vectors/Cipher_Sk/ct_460896.bin", "rb");
+    FILE *file2 = fopen("../../../kem/test_vectors/Cipher_Sk/sk_460896.bin", "rb");
 
     if (file1 == NULL || file2 == NULL) {
         perror("Error opening file");

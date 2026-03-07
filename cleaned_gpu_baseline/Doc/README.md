@@ -26,8 +26,8 @@ Override architecture if needed:
 
 ## Input files
 Each param reads:
-- `../../../../Cipher_Sk/ct_<param>.bin`
-- `../../../../Cipher_Sk/sk_<param>.bin`
+- `kem/test_vectors/Cipher_Sk/ct_<param>.bin`
+- `kem/test_vectors/Cipher_Sk/sk_<param>.bin`
 
 ## Outputs
 Profiles are written to:
