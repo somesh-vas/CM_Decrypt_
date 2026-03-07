@@ -44,12 +44,31 @@ This builds and runs all variant folders and writes outputs to `test_vectors/Cip
 
 ## Configure Number of Ciphertexts Per Key
 
-Default is `10` ciphertexts per key (`CT_PER_SK=10`).
-Override at runtime:
+Set dynamically at runtime:
 
 ```sh
 CT_PER_SK=100 ./generate_all_vectors.sh
 ```
+
+## Reuse Existing Ciphertexts (No New Randomness)
+
+If you already generated vectors (for example `CT_PER_SK=100`) and want `100*n`
+ciphertexts without generating new random ciphertexts, use:
+
+From repository root:
+
+```sh
+./utility/multiply_ct_bins.sh n kem/test_vectors/Cipher_Sk
+```
+
+From `kem/` directory:
+
+```sh
+../utility/multiply_ct_bins.sh n test_vectors/Cipher_Sk
+```
+
+Example (`n=3`): each `ct_*.bin` grows from `100` to `300` ciphertexts.
+`sk_*.bin` files are not modified.
 
 ## Output Naming
 
