@@ -1,0 +1,17 @@
+
+===== CPU single-thread baseline =====
+ciphertexts processed : 5
+total compute time    : 0.096  s (wall: 0.097 s)
+avg / min / max       : 19.256 / 16.633 / 22.800  ms
+throughput            : 51.81  cw/s
+--- stage breakdown (average) --------
+  synd   : 4183.789 µs
+  BM     : 539.219 µs
+  root   : 14532.757 µs
+
+===== CPU cycles (@3.2 GHz) =====
+avg / min / max       : 0.0 / 18446744073709.6 / 0.0  ×10^6 cycles
+--- stage breakdown (average) --------
+  synd   : 0.0 ×10^6 cycles
+  BM     : 0.0 ×10^6 cycles
+  root   : 0.0 ×10^6 cycles

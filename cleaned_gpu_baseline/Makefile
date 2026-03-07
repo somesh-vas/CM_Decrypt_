@@ -91,4 +91,5 @@ clean:
 	@rm -f profile/csv/*
 
 compare:
+	@chmod +x compare_errorstreams.sh
 	@./compare_errorstreams.sh $(PARAM) $(CPU_DIR)/results/output results/output
