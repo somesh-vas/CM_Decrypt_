@@ -41,9 +41,16 @@ The following files must exist in `kem/test_vectors/Cipher_Sk/`:
 - `ct_348864.bin`, `sk_348864.bin`
 - `ct_460896.bin`, `sk_460896.bin`
 - `ct_6688128.bin`, `sk_6688128.bin`
+- `ct_6960119.bin`, `sk_6960119.bin`
 - `ct_8192128.bin`, `sk_8192128.bin`
 
+Each ciphertext file must contain at least `KATNUM` ciphertexts. Regenerate
+them from `kem/` with `CT_PER_SK=<KATNUM> ./generate_all_vectors.sh` when the
+runtime count changes.
+
 ## Notes for maintainers
-- `param460896`, `param6688128`, `param8192128` share the same 13-bit field style but keep independent source copies in this layout.
+- `param460896`, `param6688128`, `param6960119`, `param8192128` share the same 13-bit field style but keep independent source copies in this layout.
+- `param6960119` stays on the same CPU algorithm path; its special handling is
+  only needed on the GPU-optimised side because `SYS_N=6960` is not 32-bit aligned.
 - Top-level make is intentionally quiet (`@` + `--no-print-directory`) to avoid recipe noise.
 - Positional `make run 5` support is implemented by converting the second goal into `KATNUM`.

@@ -40,7 +40,7 @@ TARGETS = [
     "kem-vectors",
 ]
 # Supported values mapped to current project layout.
-PARAMS = ["all", "348864", "460896", "6688128", "8192128"]
+PARAMS = ["all", "348864", "460896", "6688128", "6960119", "8192128"]
 ARCHES = ["sm_86", "sm_75"]
 
 

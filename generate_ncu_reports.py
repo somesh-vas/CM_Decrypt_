@@ -19,7 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 
 # Supported McEliece parameter sets in this workspace.
-PARAMS = ["348864", "460896", "6688128", "8192128"]
+PARAMS = ["348864", "460896", "6688128", "6960119", "8192128"]
 
 # Project metadata used to resolve build directory and binary name.
 PROJECTS = {
@@ -160,7 +160,7 @@ def main():
     """CLI entry point."""
     parser = argparse.ArgumentParser(description="Generate Nsight Compute .ncu-rep files")
     parser.add_argument("--project", choices=["baseline", "optimised", "both"], default="both")
-    parser.add_argument("--param", default="all", help="all or one of: 348864,460896,6688128,8192128")
+    parser.add_argument("--param", default="all", help="all or one of: 348864,460896,6688128,6960119,8192128")
     parser.add_argument("--katnum", type=int, default=5)
     parser.add_argument("--arch", default="sm_86")
     parser.add_argument("--ncu", default=shutil.which("ncu") or "/usr/local/cuda/bin/ncu")
@@ -175,7 +175,7 @@ def main():
     elif args.param in PARAMS:
         params = [args.param]
     else:
-        print("Invalid --param. Use all or one of: 348864,460896,6688128,8192128", file=sys.stderr)
+        print("Invalid --param. Use all or one of: 348864,460896,6688128,6960119,8192128", file=sys.stderr)
         return 2
 
     if args.project == "both":

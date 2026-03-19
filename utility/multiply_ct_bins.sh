@@ -11,6 +11,7 @@ ct_bytes_for() {
         ct_348864.bin) echo 96 ;;
         ct_460896.bin) echo 156 ;;
         ct_6688128.bin) echo 208 ;;
+        ct_6960119.bin) echo 194 ;;
         ct_8192128.bin) echo 208 ;;
         *) echo 0 ;;
     esac

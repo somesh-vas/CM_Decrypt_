@@ -2,7 +2,7 @@
 # - handles PARAM fan-out (single param or all),
 # - forwards ARCH/KATNUM into per-param Makefiles,
 # - provides compare/clean utilities.
-PARAMS := 348864 460896 6688128 8192128
+PARAMS := 348864 460896 6688128 6960119 8192128
 PARAM ?= all
 ARCH ?= sm_86
 KATNUM ?= 5

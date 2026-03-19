@@ -7,14 +7,14 @@ set -euo pipefail
 cd "$(dirname "$0")"
 
 # Supported parameter sets.
-PARAMS=(348864 460896 6688128 8192128)
+PARAMS=(348864 460896 6688128 6960119 8192128)
 TARGET="${1:-all}"
 CPU_DIR="${2:-../cleaned_variants/results/output}"
 GPU_DIR="${3:-results/output}"
 
 # Validate target argument early.
-if [[ "$TARGET" != "all" && "$TARGET" != "348864" && "$TARGET" != "460896" && "$TARGET" != "6688128" && "$TARGET" != "8192128" ]]; then
-    echo "Usage: $0 [all|348864|460896|6688128|8192128] [cpu_output_dir] [gpu_output_dir]"
+if [[ "$TARGET" != "all" && "$TARGET" != "348864" && "$TARGET" != "460896" && "$TARGET" != "6688128" && "$TARGET" != "6960119" && "$TARGET" != "8192128" ]]; then
+    echo "Usage: $0 [all|348864|460896|6688128|6960119|8192128] [cpu_output_dir] [gpu_output_dir]"
     exit 2
 fi
 
