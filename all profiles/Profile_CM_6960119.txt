@@ -1,0 +1,10 @@
+
+===== CPU single-thread baseline =====
+ciphertexts processed : 50000
+total compute time    : 670.261 s (wall: 671.399 s)
+avg / min / max       : 13.405 / 12.970 / 19.007 ms
+throughput            : 74.47 cw/s
+--- stage breakdown (average) --------
+  synd   : 3343.440 us
+  BM     : 469.941 us
+  root   : 9591.845 us
