@@ -6,9 +6,7 @@
 
 #include <string.h>
 #include "rng.h"
-#include <openssl/conf.h>
-#include <openssl/evp.h>
-#include <openssl/err.h>
+#include "../../../third_party/tiny-AES-c/aes.h"
 
 AES256_CTR_DRBG_struct  DRBG_ctx;
 
@@ -102,36 +100,15 @@ seedexpander(AES_XOF_struct *ctx, unsigned char *x, unsigned long xlen)
 }
 
 
-void handleErrors(void)
-{
-    ERR_print_errors_fp(stderr);
-    abort();
-}
-
-/*
-   Use whatever AES implementation you have. This uses AES from openSSL library
-      key - 256-bit AES key
-      ctr - a 128-bit plaintext value
-      buffer - a 128-bit ciphertext value
-*/
+/* Single-block AES-256 ECB used by the NIST DRBG reference code. */
 void
 AES256_ECB(unsigned char *key, unsigned char *ctr, unsigned char *buffer)
 {
-    EVP_CIPHER_CTX *ctx;
-    
-    int len;
-    
-    /* Create and initialise the context */
-    if(!(ctx = EVP_CIPHER_CTX_new())) handleErrors();
-    
-    if(1 != EVP_EncryptInit_ex(ctx, EVP_aes_256_ecb(), NULL, key, NULL))
-        handleErrors();
-    
-    if(1 != EVP_EncryptUpdate(ctx, buffer, &len, ctr, 16))
-        handleErrors();
-    
-    /* Clean up */
-    EVP_CIPHER_CTX_free(ctx);
+    struct AES_ctx ctx;
+
+    memcpy(buffer, ctr, 16);
+    AES_init_ctx(&ctx, key);
+    AES_ECB_encrypt(&ctx, buffer);
 }
 
 void

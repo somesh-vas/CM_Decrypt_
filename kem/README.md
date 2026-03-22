@@ -14,10 +14,10 @@ All generated vectors are now stored under the super folder:
 The variant folders were standardized to a consistent naming scheme:
 
 - `mceliece348864` -> `variant_348864`
-- `mceliece460896c` -> `variant_460896c`
-- `mceliece6688128c` -> `variant_6688128c`
+- `mceliece460896c` -> `variant_460896`
+- `mceliece6688128c` -> `variant_6688128`
 - `mceliece6960119` -> `variant_6960119`
-- `mceliece8192128c` -> `variant_8192128c`
+- `mceliece8192128c` -> `variant_8192128`
 
 ## Directory Layout
 
@@ -27,7 +27,7 @@ The variant folders were standardized to a consistent naming scheme:
 - `common/core/`
 : Shared core sources/headers used by all variants.
 
-- `variant_348864/`, `variant_460896c/`, `variant_6688128c/`, `variant_6960119/`, `variant_8192128c/`
+- `variant_348864/`, `variant_460896/`, `variant_6688128/`, `variant_6960119/`, `variant_8192128/`
 : Variant-specific files (`params.h`, `gf.c`, `util.c`, `crypto_kem*.h`, `nist/rng.*`) and local build/run wrappers.
 
 - `test_vectors/Cipher_Sk/`

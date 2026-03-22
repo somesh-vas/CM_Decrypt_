@@ -1,75 +1,65 @@
-/*
-  This file is for loading/storing data in a little-endian fashion
-*/
-
 #include "util.h"
 
 #include "params.h"
 
-void store_gf(unsigned char *dest, gf a)
+void store_gf(unsigned char *dest, gf value)
 {
-	dest[0] = a & 0xFF;
-	dest[1] = a >> 8;
+    dest[0] = (unsigned char)(value & 0xFFu);
+    dest[1] = (unsigned char)(value >> 8);
 }
 
 uint16_t load_gf(const unsigned char *src)
 {
-	uint16_t a;
+    uint16_t value = src[1];
 
-	a = src[1];
-	a <<= 8;
-	a |= src[0];
+    value <<= 8;
+    value |= src[0];
 
-	return a & GFMASK;
+    return (uint16_t)(value & GFMASK);
 }
 
-uint32_t load4(const unsigned char * in)
+uint32_t load4(const unsigned char *src)
 {
-	int i;
-	uint32_t ret = in[3];
+    uint32_t value = src[3];
 
-	for (i = 2; i >= 0; i--)
-	{
-		ret <<= 8;
-		ret |= in[i];
-	}
+    for (int index = 2; index >= 0; --index) {
+        value <<= 8;
+        value |= src[index];
+    }
 
-	return ret;
+    return value;
 }
 
-void store8(unsigned char *out, uint64_t in)
+void store8(unsigned char *dest, uint64_t value)
 {
-	out[0] = (in >> 0x00) & 0xFF;
-	out[1] = (in >> 0x08) & 0xFF;
-	out[2] = (in >> 0x10) & 0xFF;
-	out[3] = (in >> 0x18) & 0xFF;
-	out[4] = (in >> 0x20) & 0xFF;
-	out[5] = (in >> 0x28) & 0xFF;
-	out[6] = (in >> 0x30) & 0xFF;
-	out[7] = (in >> 0x38) & 0xFF;
+    dest[0] = (unsigned char)((value >> 0) & 0xFFu);
+    dest[1] = (unsigned char)((value >> 8) & 0xFFu);
+    dest[2] = (unsigned char)((value >> 16) & 0xFFu);
+    dest[3] = (unsigned char)((value >> 24) & 0xFFu);
+    dest[4] = (unsigned char)((value >> 32) & 0xFFu);
+    dest[5] = (unsigned char)((value >> 40) & 0xFFu);
+    dest[6] = (unsigned char)((value >> 48) & 0xFFu);
+    dest[7] = (unsigned char)((value >> 56) & 0xFFu);
 }
 
-uint64_t load8(const unsigned char * in)
+uint64_t load8(const unsigned char *src)
 {
-	int i;
-	uint64_t ret = in[7];
+    uint64_t value = src[7];
 
-	for (i = 6; i >= 0; i--)
-	{
-		ret <<= 8;
-		ret |= in[i];
-	}
+    for (int index = 6; index >= 0; --index) {
+        value <<= 8;
+        value |= src[index];
+    }
 
-	return ret;
+    return value;
 }
 
-gf bitrev(gf a)
+gf bitrev(gf value)
 {
-	a = ((a & 0x00FF) << 8) | ((a & 0xFF00) >> 8);
-	a = ((a & 0x0F0F) << 4) | ((a & 0xF0F0) >> 4);
-	a = ((a & 0x3333) << 2) | ((a & 0xCCCC) >> 2);
-	a = ((a & 0x5555) << 1) | ((a & 0xAAAA) >> 1);
-	
-	return a >> 3;
-}
+    value = (gf)(((value & 0x00FFu) << 8) | ((value & 0xFF00u) >> 8));
+    value = (gf)(((value & 0x0F0Fu) << 4) | ((value & 0xF0F0u) >> 4));
+    value = (gf)(((value & 0x3333u) << 2) | ((value & 0xCCCCu) >> 2));
+    value = (gf)(((value & 0x5555u) << 1) | ((value & 0xAAAAu) >> 1));
 
+    return (gf)(value >> 3);
+}

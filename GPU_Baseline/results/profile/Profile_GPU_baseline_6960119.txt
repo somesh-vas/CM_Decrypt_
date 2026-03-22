@@ -1,0 +1,11 @@
+===== GPU baseline =====
+ciphertexts processed : 50000
+batch size            : 50000
+H2D                   : 1.465 ms
+syndrome              : 89.191 ms
+Berlekamp-Massey      : 439.015 ms
+Chien search          : 5159.385 ms
+D2H                   : 26.511 ms
+wall                  : 5715.669 ms
+overhead              : 0.101 ms
+throughput            : 8747.88 ct/s

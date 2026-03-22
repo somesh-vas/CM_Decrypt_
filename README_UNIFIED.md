@@ -1,9 +1,9 @@
 # Unified CPU + GPU Workflow
 
 This workspace now has one master `Makefile` at repository root to control both:
-- `cleaned_variants` (CPU)
-- `cleaned_gpu_baseline` (GPU baseline)
-- `cleaned_gpu_optimised` (GPU optimised)
+- `CPU` (CPU)
+- `GPU_Baseline` (GPU baseline)
+- `GPU_Optimised` (GPU optimised)
 
 ## Supported parameters
 
@@ -34,6 +34,7 @@ CT_PER_SK=5 ./generate_all_vectors.sh
 - `make clean [PARAM=<id|all>]`
 - `make compare [PARAM=<id|all>]`
 - `make compare-opt [PARAM=<id|all>]`
+- `make full-profile [PARAM=<id|all>] [KATNUM=<n>] [ARCH=<sm_xx>]`
 
 Examples:
 - `make all 2 sm_75`
@@ -45,6 +46,10 @@ Examples:
 - `make compare PARAM=6960119`
 - `make compare-opt PARAM=6688128`
 - `make compare-opt PARAM=6960119`
+- `make full-profile PARAM=6960119 KATNUM=5 ARCH=sm_86`
+- `make full-profile PARAM=6960119 ARCH=sm_86`  # prompts for `KATNUM` at runtime
+- `make full-profile PARAM=6960119 KATNUM=5 ARCH=sm_86 SUDO=1`
+- `make full-profile PARAM=6960119 KATNUM=5 ARCH=sm_86 SKIP_NCU=1`
 
 ## Notes
 
@@ -52,6 +57,11 @@ Examples:
 - `make output` enables GPU errorstream generation and writes `errorstream0_*.bin`.
 - `make compare` is read-only and compares existing CPU/GPU `errorstream0_*.bin` files.
 - `make compare-opt` is read-only and compares existing CPU/GPU-optimised `errorstream0_*.bin` files.
+- `make full-profile` runs `clean -> output -> compare -> compare-opt -> NCU reports`, then mirrors generated `.txt` files into `full_profile_txt/`.
+- If Nsight Compute cannot access GPU counters because `RmProfilingAdminOnly=1`, `make full-profile` now records the NCU steps as `SKIP` and still completes successfully.
+- If `KATNUM` is omitted for `make full-profile` or `utility/full_e2e_profile.py`, it is requested interactively at runtime.
+- `SUDO=1` forwards `--sudo` to the full-profile utility so Nsight Compute can prompt for admin access when profiling is restricted.
+- `SKIP_NCU=1` runs the end-to-end validation without generating `.ncu-rep` files.
 - `6960119` is fully wired through KEM, CPU, GPU baseline, and GPU optimised.
 
 ## GUI Runner
@@ -64,9 +74,10 @@ python3 gui_runner.py
 ```
 
 In the GUI, choose:
-- `Target` (`all/run/output/clean/compare` and CPU/GPU-specific targets)
+- `Target` (`all/run/output/clean/compare`, Nsight report generation, Nsight `.ncu-rep` to `.txt` import, and CPU/GPU-specific targets)
 - `KATNUM`
 - `ARCH`
 - `PARAM`
+- `Overwrite imported NCU TXT` when you want the GUI to replace a writable `<report>.txt` instead of creating `*_details.txt`
 
 Then click `Run` to execute the command and stream logs live.

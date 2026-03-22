@@ -1,213 +1,165 @@
-/*
-  This file is for functions for field arithmetic
-*/
-
 #include "gf.h"
 
 #include "params.h"
 
-gf gf_iszero(gf a)
+gf gf_iszero(gf value)
 {
-	uint32_t t = a;
+    uint32_t masked = value;
 
-	t -= 1;
-	t >>= 19;
+    masked -= 1;
+    masked >>= 19;
 
-	return (gf) t;
+    return (gf)masked;
 }
 
-gf gf_add(gf in0, gf in1)
+gf gf_add(gf lhs, gf rhs)
 {
-	return in0 ^ in1;
+    return lhs ^ rhs;
 }
 
-gf gf_mul(gf in0, gf in1)
+gf gf_mul(gf lhs, gf rhs)
 {
-	int i;
+    uint64_t product = (uint64_t)lhs * (rhs & 1u);
 
-	uint64_t tmp;
-	uint64_t t0;
-	uint64_t t1;
-	uint64_t t;
+    for (int bit = 1; bit < GFBITS; ++bit) {
+        product ^= (uint64_t)lhs * (rhs & (1u << bit));
+    }
 
-	t0 = in0;
-	t1 = in1;
+    /* Reduce modulo x^13 + x^4 + x^3 + x + 1. */
+    uint64_t reduction = product & 0x1FF0000u;
+    product ^= (reduction >> 9) ^ (reduction >> 10) ^ (reduction >> 12) ^ (reduction >> 13);
 
-	tmp = t0 * (t1 & 1);
+    reduction = product & 0x000E000u;
+    product ^= (reduction >> 9) ^ (reduction >> 10) ^ (reduction >> 12) ^ (reduction >> 13);
 
-	for (i = 1; i < GFBITS; i++)
-		tmp ^= (t0 * (t1 & (1 << i)));
-
-	//
-
-	t = tmp & 0x1FF0000;
-	tmp ^= (t >> 9) ^ (t >> 10) ^ (t >> 12) ^ (t >> 13);
-
-	t = tmp & 0x000E000;
-	tmp ^= (t >> 9) ^ (t >> 10) ^ (t >> 12) ^ (t >> 13);
-
-	return tmp & GFMASK;
+    return (gf)(product & GFMASK);
 }
 
-/* input: field element in */
-/* return: (in^2)^2 */
-static inline gf gf_sq2(gf in)
+static inline gf gf_sq2(gf value)
 {
-	int i;
+    const uint64_t bit_spread_masks[] = {
+        0x1111111111111111ULL,
+        0x0303030303030303ULL,
+        0x000F000F000F000FULL,
+        0x000000FF000000FFULL,
+    };
+    const uint64_t reduction_masks[] = {
+        0x0001FF0000000000ULL,
+        0x000000FF80000000ULL,
+        0x000000007FC00000ULL,
+        0x00000000003FE000ULL,
+    };
+    uint64_t expanded = value;
 
-	const uint64_t B[] = {0x1111111111111111, 
-	                      0x0303030303030303, 
-	                      0x000F000F000F000F, 
-	                      0x000000FF000000FF};
+    expanded = (expanded | (expanded << 24)) & bit_spread_masks[3];
+    expanded = (expanded | (expanded << 12)) & bit_spread_masks[2];
+    expanded = (expanded | (expanded << 6)) & bit_spread_masks[1];
+    expanded = (expanded | (expanded << 3)) & bit_spread_masks[0];
 
-	const uint64_t M[] = {0x0001FF0000000000, 
-	                      0x000000FF80000000, 
-	                      0x000000007FC00000, 
-	                      0x00000000003FE000};
+    for (int index = 0; index < 4; ++index) {
+        uint64_t reduction = expanded & reduction_masks[index];
+        expanded ^= (reduction >> 9) ^ (reduction >> 10) ^ (reduction >> 12) ^ (reduction >> 13);
+    }
 
-	uint64_t x = in; 
-	uint64_t t;
-
-	x = (x | (x << 24)) & B[3];
-	x = (x | (x << 12)) & B[2];
-	x = (x | (x << 6)) & B[1];
-	x = (x | (x << 3)) & B[0];
-
-	for (i = 0; i < 4; i++)
-	{
-		t = x & M[i];
-		x ^= (t >> 9) ^ (t >> 10) ^ (t >> 12) ^ (t >> 13);
-	}
-
-	return x & GFMASK;
+    return (gf)(expanded & GFMASK);
 }
 
-/* input: field element in, m */
-/* return: (in^2)*m */
-static inline gf gf_sqmul(gf in, gf m)
+static inline gf gf_sqmul(gf value, gf multiplier)
 {
-	int i;
+    const uint64_t reduction_masks[] = {
+        0x0000001FF0000000ULL,
+        0x000000000FF80000ULL,
+        0x000000000007E000ULL,
+    };
+    uint64_t lhs = value;
+    uint64_t rhs = multiplier;
+    uint64_t product;
 
-	uint64_t x;
-	uint64_t t0;
-	uint64_t t1;
-	uint64_t t;
+    product = (rhs << 6) * (lhs & (1u << 6));
+    lhs ^= (lhs << 7);
 
-	const uint64_t M[] = {0x0000001FF0000000,
-	                      0x000000000FF80000, 
-	                      0x000000000007E000}; 
+    product ^= rhs * (lhs & 0x04001u);
+    product ^= (rhs * (lhs & 0x08002u)) << 1;
+    product ^= (rhs * (lhs & 0x10004u)) << 2;
+    product ^= (rhs * (lhs & 0x20008u)) << 3;
+    product ^= (rhs * (lhs & 0x40010u)) << 4;
+    product ^= (rhs * (lhs & 0x80020u)) << 5;
 
-	t0 = in;
-	t1 = m;
+    for (int index = 0; index < 3; ++index) {
+        uint64_t reduction = product & reduction_masks[index];
+        product ^= (reduction >> 9) ^ (reduction >> 10) ^ (reduction >> 12) ^ (reduction >> 13);
+    }
 
-	x = (t1 << 6) * (t0 & (1 << 6));
-	
-	t0 ^= (t0 << 7);
-
-	x ^= (t1 * (t0 & (0x04001)));
-	x ^= (t1 * (t0 & (0x08002))) << 1;
-	x ^= (t1 * (t0 & (0x10004))) << 2;
-	x ^= (t1 * (t0 & (0x20008))) << 3;
-	x ^= (t1 * (t0 & (0x40010))) << 4;
-	x ^= (t1 * (t0 & (0x80020))) << 5;
-
-	for (i = 0; i < 3; i++)
-	{
-		t = x & M[i];
-		x ^= (t >> 9) ^ (t >> 10) ^ (t >> 12) ^ (t >> 13);
-	}
-
-	return x & GFMASK;
+    return (gf)(product & GFMASK);
 }
 
-/* input: field element in, m */
-/* return: ((in^2)^2)*m */
-static inline gf gf_sq2mul(gf in, gf m)
+static inline gf gf_sq2mul(gf value, gf multiplier)
 {
-	int i;
+    const uint64_t reduction_masks[] = {
+        0x1FF0000000000000ULL,
+        0x000FF80000000000ULL,
+        0x000007FC00000000ULL,
+        0x00000003FE000000ULL,
+        0x0000000001FE0000ULL,
+        0x000000000001E000ULL,
+    };
+    uint64_t lhs = value;
+    uint64_t rhs = multiplier;
+    uint64_t product;
 
-	uint64_t x;
-	uint64_t t0;
-	uint64_t t1;
-	uint64_t t;
+    product = (rhs << 18) * (lhs & (1u << 6));
+    lhs ^= (lhs << 21);
 
-	const uint64_t M[] = {0x1FF0000000000000,
-		              0x000FF80000000000, 
-		              0x000007FC00000000, 
-	                      0x00000003FE000000, 
-	                      0x0000000001FE0000,
-	                      0x000000000001E000};
+    product ^= rhs * (lhs & 0x010000001ULL);
+    product ^= (rhs * (lhs & 0x020000002ULL)) << 3;
+    product ^= (rhs * (lhs & 0x040000004ULL)) << 6;
+    product ^= (rhs * (lhs & 0x080000008ULL)) << 9;
+    product ^= (rhs * (lhs & 0x100000010ULL)) << 12;
+    product ^= (rhs * (lhs & 0x200000020ULL)) << 15;
 
-	t0 = in;
-	t1 = m;
+    for (int index = 0; index < 6; ++index) {
+        uint64_t reduction = product & reduction_masks[index];
+        product ^= (reduction >> 9) ^ (reduction >> 10) ^ (reduction >> 12) ^ (reduction >> 13);
+    }
 
-	x = (t1 << 18) * (t0 & (1 << 6));
-
-	t0 ^= (t0 << 21);
-
-	x ^= (t1 * (t0 & (0x010000001)));
-	x ^= (t1 * (t0 & (0x020000002))) << 3;
-	x ^= (t1 * (t0 & (0x040000004))) << 6;
-	x ^= (t1 * (t0 & (0x080000008))) << 9;
-	x ^= (t1 * (t0 & (0x100000010))) << 12;
-	x ^= (t1 * (t0 & (0x200000020))) << 15;
-
-	for (i = 0; i < 6; i++)
-	{
-		t = x & M[i];
-		x ^= (t >> 9) ^ (t >> 10) ^ (t >> 12) ^ (t >> 13);
-	}
-
-	return x & GFMASK;
+    return (gf)(product & GFMASK);
 }
 
-/* input: field element den, num */
-/* return: (num/den) */
-gf gf_frac(gf den, gf num)
+gf gf_frac(gf denominator, gf numerator)
 {
-	gf tmp_11;
-	gf tmp_1111;
-	gf out;
+    gf den_pow_3 = gf_sqmul(denominator, denominator);
+    gf den_pow_15 = gf_sq2mul(den_pow_3, den_pow_3);
+    gf inverse = gf_sq2(den_pow_15);
 
-	tmp_11 = gf_sqmul(den, den); // ^11
-	tmp_1111 = gf_sq2mul(tmp_11, tmp_11); // ^1111
-	out = gf_sq2(tmp_1111); 
-	out = gf_sq2mul(out, tmp_1111); // ^11111111
-	out = gf_sq2(out);
-	out = gf_sq2mul(out, tmp_1111); // ^111111111111
+    inverse = gf_sq2mul(inverse, den_pow_15);
+    inverse = gf_sq2(inverse);
+    inverse = gf_sq2mul(inverse, den_pow_15);
 
-	return gf_sqmul(out, num); // ^1111111111110 = ^-1
+    return gf_sqmul(inverse, numerator);
 }
 
-gf gf_inv(gf den)
+gf gf_inv(gf denominator)
 {
-	return gf_frac(den, ((gf) 1));
+    return gf_frac(denominator, (gf)1);
 }
 
-/* input: in0, in1 in GF((2^m)^t)*/
-/* output: out = in0*in1 */
-void GF_mul(gf *out, gf *in0, gf *in1)
+void GF_mul(gf *out, gf *lhs, gf *rhs)
 {
-	int i, j;
+    gf product[SYS_T * 2 - 1] = {0};
 
-	gf prod[ SYS_T*2-1 ];
+    for (int i = 0; i < SYS_T; ++i) {
+        for (int j = 0; j < SYS_T; ++j) {
+            product[i + j] ^= gf_mul(lhs[i], rhs[j]);
+        }
+    }
 
-	for (i = 0; i < SYS_T*2-1; i++)
-		prod[i] = 0;
+    /* Reduce modulo x^119 + x^8 + 1. */
+    for (int i = (SYS_T - 1) * 2; i >= SYS_T; --i) {
+        product[i - SYS_T + 8] ^= product[i];
+        product[i - SYS_T] ^= product[i];
+    }
 
-	for (i = 0; i < SYS_T; i++)
-		for (j = 0; j < SYS_T; j++)
-			prod[i+j] ^= gf_mul(in0[i], in1[j]);
-
-	//
- 
-	for (i = (SYS_T-1)*2; i >= SYS_T; i--)
-	{
-		prod[i - SYS_T +  8] ^= prod[i];
-		prod[i - SYS_T +  0] ^= prod[i];
-	}
-
-	for (i = 0; i < SYS_T; i++)
-		out[i] = prod[i];
+    for (int i = 0; i < SYS_T; ++i) {
+        out[i] = product[i];
+    }
 }
-
