@@ -9,3 +9,8 @@ iteration_id,label,timestamp_utc,arch,param,correctness_status,ncu_status,katnum
 20260518T103519Z_baseline-existing-bin-compare,baseline-existing-bin-compare,20260518T103519Z,sm_75,6688128,FAIL,NOT_RUN_COMPARE_ONLY,50000,,,,,,,,,,,,,,c7fd37e8cc9bc9f997d39eca7652f28ea10d3eed
 20260518T103519Z_baseline-existing-bin-compare,baseline-existing-bin-compare,20260518T103519Z,sm_75,6960119,FAIL,NOT_RUN_COMPARE_ONLY,50000,,,,,,,,,,,,,,c7fd37e8cc9bc9f997d39eca7652f28ea10d3eed
 20260518T103519Z_baseline-existing-bin-compare,baseline-existing-bin-compare,20260518T103519Z,sm_75,8192128,FAIL,NOT_RUN_COMPARE_ONLY,50000,,,,,,,,,,,,,,c7fd37e8cc9bc9f997d39eca7652f28ea10d3eed
+20260518T105537Z_baseline-sm75-rtx3090ti-nonroot,baseline-sm75-rtx3090ti-nonroot,20260518T105537Z,sm_75,348864,FAIL,SKIP,50000,,,,,,,,,,,,,,47295dedb4d4c2956d2932f823cffbdc8f8f1780
+20260518T105537Z_baseline-sm75-rtx3090ti-nonroot,baseline-sm75-rtx3090ti-nonroot,20260518T105537Z,sm_75,460896,FAIL,SKIP,50000,,,,,,,,,,,,,,47295dedb4d4c2956d2932f823cffbdc8f8f1780
+20260518T105537Z_baseline-sm75-rtx3090ti-nonroot,baseline-sm75-rtx3090ti-nonroot,20260518T105537Z,sm_75,6688128,FAIL,SKIP,50000,,,,,,,,,,,,,,47295dedb4d4c2956d2932f823cffbdc8f8f1780
+20260518T105537Z_baseline-sm75-rtx3090ti-nonroot,baseline-sm75-rtx3090ti-nonroot,20260518T105537Z,sm_75,6960119,FAIL,SKIP,50000,76318.25,281896.600327,655.151,177.37,19.648,30.785,126.937,71.56621751141681,126875264.0,86.42,0.08,,,47295dedb4d4c2956d2932f823cffbdc8f8f1780
+20260518T105537Z_baseline-sm75-rtx3090ti-nonroot,baseline-sm75-rtx3090ti-nonroot,20260518T105537Z,sm_75,8192128,FAIL,SKIP,50000,,,,,,,,,,,,,,47295dedb4d4c2956d2932f823cffbdc8f8f1780

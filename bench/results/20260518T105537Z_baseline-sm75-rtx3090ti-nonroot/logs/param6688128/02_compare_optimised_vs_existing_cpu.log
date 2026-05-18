@@ -1,0 +1,9 @@
+$ make compare-opt PARAM=6688128
+
+===== Compare CPU vs GPU-Optimised errorstreams =====
+[FAIL] param6688128 mismatch
+COMPARE_STATUS=FAIL
+make[1]: *** [Makefile:91: compare] Error 1
+make: *** [Makefile:79: compare-opt] Error 2
+
+[exit_code] 2
