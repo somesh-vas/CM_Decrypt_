@@ -1,0 +1,14 @@
+{
+  "param": "8192128",
+  "copied": [
+    "outputs/param8192128/cpu_errorstream0_reference.bin",
+    "outputs/param8192128/gpu_optimised_errorstream0.bin",
+    "profiles/param8192128/Profile_GPU_optimised.txt"
+  ],
+  "optimised_metrics": {
+    "profile_found": true
+  },
+  "chien_ncu_metrics": {
+    "ncu_text_found": false
+  }
+}

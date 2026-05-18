@@ -1,0 +1,80 @@
+{
+  "nvidia_smi_list": {
+    "cmd": [
+      "nvidia-smi",
+      "-L"
+    ],
+    "returncode": 0,
+    "output": "GPU 0: NVIDIA GeForce RTX 3090 Ti (UUID: GPU-4ee9e43b-3a3c-3a2b-eef4-54d571bd7b78)\n"
+  },
+  "nvidia_smi_query": {
+    "cmd": [
+      "nvidia-smi",
+      "--query-gpu=index,name,compute_cap,driver_version,memory.total,power.limit,clocks.max.sm,clocks.max.memory",
+      "--format=csv,noheader"
+    ],
+    "returncode": 0,
+    "output": "0, NVIDIA GeForce RTX 3090 Ti, 8.6, 570.181, 24564 MiB, 450.00 W, 2130 MHz, 10501 MHz\n"
+  },
+  "nvcc_version": {
+    "cmd": [
+      "nvcc",
+      "--version"
+    ],
+    "returncode": 0,
+    "output": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Wed_Jan_15_19:20:09_PST_2025\nCuda compilation tools, release 12.8, V12.8.61\nBuild cuda_12.8.r12.8/compiler.35404655_0\n"
+  },
+  "ncu_version": {
+    "cmd": [
+      "ncu",
+      "--version"
+    ],
+    "returncode": 0,
+    "output": "NVIDIA (R) Nsight Compute Command Line Profiler\nCopyright (c) 2018-2024 NVIDIA Corporation\nVersion 2025.1.0.0 (build 35237751) (public-release)\n"
+  },
+  "ncu_path": {
+    "cmd": [
+      "bash",
+      "-lc",
+      "command -v ncu || true"
+    ],
+    "returncode": 0,
+    "output": "/usr/local/cuda-12.8/bin/ncu\n"
+  },
+  "git_head": {
+    "cmd": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "output": "21aa60cf003fc3aa7aa8668cae380a6b37e2716f\n"
+  },
+  "git_branch": {
+    "cmd": [
+      "git",
+      "branch",
+      "--show-current"
+    ],
+    "returncode": 0,
+    "output": "codex-bench-system\n"
+  },
+  "git_status": {
+    "cmd": [
+      "git",
+      "status",
+      "--short"
+    ],
+    "returncode": 0,
+    "output": "?? CPU/results/\n?? bench/results/\n"
+  },
+  "assumptions": {
+    "remote_system": true,
+    "root_user": false,
+    "sudo_allowed": false,
+    "target_arch_default": "sm_75",
+    "actual_gpu_expected": "NVIDIA GeForce RTX 3090 Ti, CC 8.6, 84 SMs",
+    "nvcc_expected": "CUDA 12.8 / V12.8.61",
+    "ncu_expected": "Nsight Compute 2025.1.0.0"
+  }
+}

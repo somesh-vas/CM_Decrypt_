@@ -1,0 +1,1 @@
+Baseline before warp_chien_search_kernel optimizations. No code changes. Remote non-root RTX 3090 Ti system, CUDA 12.8, NCU 2025.1, compiled with ARCH=sm_75. Correctness compares GPU_Optimised output against existing CPU errorstreams only.

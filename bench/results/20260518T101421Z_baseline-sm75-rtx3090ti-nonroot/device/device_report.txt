@@ -1,0 +1,451 @@
+
+========== Report Metadata ==========
+Generated:             Mon May 18 15:44:21 IST 2026
+
+========== System Overview ==========
+Hostname:              user
+Operating System:      Ubuntu 20.04.6 LTS
+Kernel:                5.15.0-139-generic
+Architecture:          x86_64
+Uptime:                up 39 weeks, 3 days, 20 hours, 31 minutes
+
+========== CPU ==========
+
+-- CPU details (lscpu) --
+Architecture:                         x86_64
+CPU op-mode(s):                       32-bit, 64-bit
+Byte Order:                           Little Endian
+Address sizes:                        46 bits physical, 48 bits virtual
+CPU(s):                               16
+On-line CPU(s) list:                  0-15
+Thread(s) per core:                   2
+Core(s) per socket:                   8
+Socket(s):                            1
+NUMA node(s):                         1
+Vendor ID:                            GenuineIntel
+CPU family:                           6
+Model:                                85
+Model name:                           Intel(R) Xeon(R) Silver 4208 CPU @ 2.10GHz
+Stepping:                             7
+CPU MHz:                              3200.000
+CPU max MHz:                          3200.0000
+CPU min MHz:                          800.0000
+BogoMIPS:                             4200.00
+Virtualization:                       VT-x
+L1d cache:                            256 KiB
+L1i cache:                            256 KiB
+L2 cache:                             8 MiB
+L3 cache:                             11 MiB
+NUMA node0 CPU(s):                    0-15
+Vulnerability Gather data sampling:   Mitigation; Microcode
+Vulnerability Itlb multihit:          KVM: Mitigation: VMX disabled
+Vulnerability L1tf:                   Not affected
+Vulnerability Mds:                    Not affected
+Vulnerability Meltdown:               Not affected
+Vulnerability Mmio stale data:        Mitigation; Clear CPU buffers; SMT vulnerable
+Vulnerability Reg file data sampling: Not affected
+Vulnerability Retbleed:               Mitigation; Enhanced IBRS
+Vulnerability Spec rstack overflow:   Not affected
+Vulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl and seccomp
+Vulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:             Mitigation; Enhanced / Automatic IBRS; IBPB conditional; RSB filling; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop
+Vulnerability Srbds:                  Not affected
+Vulnerability Tsx async abort:        Mitigation; TSX disabled
+Flags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+
+========== Memory ==========
+
+-- Memory usage (free -h) --
+              total        used        free      shared  buff/cache   available
+Mem:          125Gi       4.4Gi       101Gi       5.0Mi        19Gi       119Gi
+Swap:          15Gi       195Mi        15Gi
+
+-- Memory details (/proc/meminfo) --
+MemTotal:       131537268 kB
+MemAvailable:   125654944 kB
+SwapTotal:      16448508 kB
+SwapFree:       16248460 kB
+
+========== Storage ==========
+
+-- Block devices (lsblk) --
+NAME   MODEL                     SIZE TYPE FSTYPE   MOUNTPOINT
+loop0                              4K loop squashfs /snap/bare/5
+loop1                          516.2M loop          /snap/gnome-42-2204/226
+loop2                             74M loop          /snap/core22/2339
+loop3                           63.8M loop          /snap/core20/2866
+loop4                          349.7M loop squashfs /snap/gnome-3-38-2004/140
+loop5                           66.8M loop          /snap/core24/1643
+loop7                          531.4M loop          /snap/gnome-42-2204/247
+loop8                           65.2M loop squashfs /snap/gtk-common-themes/1519
+loop9                           66.9M loop          /snap/core24/1587
+loop10                          12.2M loop squashfs /snap/snap-store/1216
+loop11                          91.7M loop squashfs /snap/gtk-common-themes/1535
+loop12                          49.3M loop          /snap/snapd/26865
+loop13                         349.7M loop squashfs /snap/gnome-3-38-2004/143
+loop14                          63.8M loop          /snap/core20/2769
+loop15                          12.3M loop squashfs /snap/snap-store/959
+loop16                           5.2M loop          /snap/curl/2393
+loop17                           5.1M loop          /snap/curl/2404
+loop18                            74M loop          /snap/core22/2411
+loop19                          48.4M loop          /snap/snapd/26382
+sda    Samsung_SSD_870_EVO_1TB 931.5G disk          
+├─sda1                           976M part vfat     /boot/efi
+├─sda2                          15.7G part swap     [SWAP]
+├─sda3                           977M part ext4     /boot
+└─sda4                         913.9G part ext4     /
+sdb    ST2000NM000B-2TD100       1.8T disk          
+└─sdb1                           1.8T part ext4     /home
+
+-- Filesystem usage (df -hT) --
+Filesystem     Type      Size  Used Avail Use% Mounted on
+udev           devtmpfs   63G     0   63G   0% /dev
+tmpfs          tmpfs      13G  2.3M   13G   1% /run
+/dev/sda4      ext4      899G  111G  743G  13% /
+tmpfs          tmpfs      63G     0   63G   0% /dev/shm
+tmpfs          tmpfs     5.0M  4.0K  5.0M   1% /run/lock
+tmpfs          tmpfs      63G     0   63G   0% /sys/fs/cgroup
+/dev/loop0     squashfs  128K  128K     0 100% /snap/bare/5
+/dev/loop4     squashfs  350M  350M     0 100% /snap/gnome-3-38-2004/140
+/dev/loop10    squashfs   13M   13M     0 100% /snap/snap-store/1216
+/dev/loop15    squashfs   13M   13M     0 100% /snap/snap-store/959
+/dev/loop11    squashfs   92M   92M     0 100% /snap/gtk-common-themes/1535
+/dev/loop8     squashfs   66M   66M     0 100% /snap/gtk-common-themes/1519
+/dev/loop13    squashfs  350M  350M     0 100% /snap/gnome-3-38-2004/143
+/dev/sda3      ext4      944M  220M  659M  26% /boot
+/dev/sda1      vfat      975M  6.1M  968M   1% /boot/efi
+/dev/sdb1      ext4      1.8T  196G  1.6T  12% /home
+tmpfs          tmpfs      13G   20K   13G   1% /run/user/125
+tmpfs          tmpfs      13G     0   13G   0% /run/user/1006
+/dev/loop1     squashfs  517M  517M     0 100% /snap/gnome-42-2204/226
+tmpfs          tmpfs      13G     0   13G   0% /run/user/1001
+tmpfs          tmpfs      13G  228K   13G   1% /run/user/1007
+/dev/loop7     squashfs  532M  532M     0 100% /snap/gnome-42-2204/247
+/dev/loop2     squashfs   74M   74M     0 100% /snap/core22/2339
+/dev/loop16    squashfs  5.3M  5.3M     0 100% /snap/curl/2393
+/dev/loop19    squashfs   49M   49M     0 100% /snap/snapd/26382
+/dev/loop18    squashfs   74M   74M     0 100% /snap/core22/2411
+/dev/loop14    squashfs   64M   64M     0 100% /snap/core20/2769
+/dev/loop9     squashfs   67M   67M     0 100% /snap/core24/1587
+/dev/loop12    squashfs   50M   50M     0 100% /snap/snapd/26865
+/dev/loop17    squashfs  5.3M  5.3M     0 100% /snap/curl/2404
+/dev/loop3     squashfs   64M   64M     0 100% /snap/core20/2866
+/dev/loop5     squashfs   67M   67M     0 100% /snap/core24/1643
+tmpfs          tmpfs      13G  4.0K   13G   1% /run/user/1004
+
+========== Motherboard / BIOS ==========
+System Vendor:         Tyrone Systems
+Product Name:          SS400TA-54
+Product Version:       Intel Chipset C621
+Board Vendor:          Tyrone Systems
+Board Name:            SS400TA-54
+Board Version:         Intel Chipset C621
+BIOS Version:          3.5
+BIOS Date:             08/02/2021
+
+========== Display Adapters (PCI) ==========
+
+-- PCI display devices (lspci) --
+04:00.0 VGA compatible controller: ASPEED Technology, Inc. ASPEED Graphics Family (rev 41)
+1a:00.0 VGA compatible controller: NVIDIA Corporation Device 2203 (rev a1)
+
+========== GPU - NVIDIA ==========
+
+-- GPU list (nvidia-smi -L) --
+GPU 0: NVIDIA GeForce RTX 3090 Ti (UUID: GPU-4ee9e43b-3a3c-3a2b-eef4-54d571bd7b78)
+
+-- Driver and live status (nvidia-smi) --
+Mon May 18 15:44:21 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.181                Driver Version: 570.181        CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3090 Ti     Off |   00000000:1A:00.0 Off |                  Off |
+| 47%   36C    P0            100W /  450W |      68MiB /  24564MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            1195      G   /usr/lib/xorg/Xorg                        4MiB |
++-----------------------------------------------------------------------------------------+
+
+-- Per-GPU properties (CSV query) --
+index, name, uuid, pci.bus_id, driver_version, vbios_version, memory.total [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%], utilization.memory [%], temperature.gpu, power.draw [W], power.limit [W], clocks.current.graphics [MHz], clocks.current.sm [MHz], clocks.current.memory [MHz]
+0, NVIDIA GeForce RTX 3090 Ti, GPU-4ee9e43b-3a3c-3a2b-eef4-54d571bd7b78, 00000000:1A:00.0, 570.181, 94.02.A0.00.53, 24564 MiB, 68 MiB, 24056 MiB, 0 %, 0 %, 37, 100.89 W, 450.00 W, 1560 MHz, 1560 MHz, 10501 MHz
+
+-- Full NVIDIA query (nvidia-smi -q) --
+
+==============NVSMI LOG==============
+
+Timestamp                                 : Mon May 18 15:44:21 2026
+Driver Version                            : 570.181
+CUDA Version                              : 12.8
+
+Attached GPUs                             : 1
+GPU 00000000:1A:00.0
+    Product Name                          : NVIDIA GeForce RTX 3090 Ti
+    Product Brand                         : GeForce
+    Product Architecture                  : Ampere
+    Display Mode                          : Disabled
+    Display Active                        : Disabled
+    Persistence Mode                      : Disabled
+    Addressing Mode                       : None
+    MIG Mode
+        Current                           : N/A
+        Pending                           : N/A
+    Accounting Mode                       : Disabled
+    Accounting Mode Buffer Size           : 4000
+    Driver Model
+        Current                           : N/A
+        Pending                           : N/A
+    Serial Number                         : N/A
+    GPU UUID                              : GPU-4ee9e43b-3a3c-3a2b-eef4-54d571bd7b78
+    Minor Number                          : 0
+    VBIOS Version                         : 94.02.A0.00.53
+    MultiGPU Board                        : No
+    Board ID                              : 0x1a00
+    Board Part Number                     : N/A
+    GPU Part Number                       : 2203-350-A1
+    FRU Part Number                       : N/A
+    Platform Info
+        Chassis Serial Number             : N/A
+        Slot Number                       : N/A
+        Tray Index                        : N/A
+        Host ID                           : N/A
+        Peer Type                         : N/A
+        Module Id                         : 1
+        GPU Fabric GUID                   : N/A
+    Inforom Version
+        Image Version                     : G002.0000.00.03
+        OEM Object                        : 2.0
+        ECC Object                        : 6.16
+        Power Management Object           : N/A
+    Inforom BBX Object Flush
+        Latest Timestamp                  : N/A
+        Latest Duration                   : N/A
+    GPU Operation Mode
+        Current                           : N/A
+        Pending                           : N/A
+    GPU C2C Mode                          : N/A
+    GPU Virtualization Mode
+        Virtualization Mode               : None
+        Host VGPU Mode                    : N/A
+        vGPU Heterogeneous Mode           : N/A
+    GPU Reset Status
+        Reset Required                    : Requested functionality has been deprecated
+        Drain and Reset Recommended       : Requested functionality has been deprecated
+    GPU Recovery Action                   : None
+    GSP Firmware Version                  : 570.181
+    IBMNPU
+        Relaxed Ordering Mode             : N/A
+    PCI
+        Bus                               : 0x1A
+        Device                            : 0x00
+        Domain                            : 0x0000
+        Base Classcode                    : 0x3
+        Sub Classcode                     : 0x0
+        Device Id                         : 0x220310DE
+        Bus Id                            : 00000000:1A:00.0
+        Sub System Id                     : 0x161810DE
+        GPU Link Info
+            PCIe Generation
+                Max                       : 3
+                Current                   : 3
+                Device Current            : 3
+                Device Max                : 4
+                Host Max                  : 3
+            Link Width
+                Max                       : 16x
+                Current                   : 16x
+        Bridge Chip
+            Type                          : N/A
+            Firmware                      : N/A
+        Replays Since Reset               : 0
+        Replay Number Rollovers           : 0
+        Tx Throughput                     : 350 KB/s
+        Rx Throughput                     : 350 KB/s
+        Atomic Caps Outbound              : N/A
+        Atomic Caps Inbound               : N/A
+    Fan Speed                             : 47 %
+    Performance State                     : P0
+    Clocks Event Reasons
+        Idle                              : Active
+        Applications Clocks Setting       : Not Active
+        SW Power Cap                      : Not Active
+        HW Slowdown                       : Not Active
+            HW Thermal Slowdown           : Not Active
+            HW Power Brake Slowdown       : Not Active
+        Sync Boost                        : Not Active
+        SW Thermal Slowdown               : Not Active
+        Display Clock Setting             : Not Active
+    Sparse Operation Mode                 : N/A
+    FB Memory Usage
+        Total                             : 24564 MiB
+        Reserved                          : 441 MiB
+        Used                              : 68 MiB
+        Free                              : 24056 MiB
+    BAR1 Memory Usage
+        Total                             : 256 MiB
+        Used                              : 3 MiB
+        Free                              : 253 MiB
+    Conf Compute Protected Memory Usage
+        Total                             : 0 MiB
+        Used                              : 0 MiB
+        Free                              : 0 MiB
+    Compute Mode                          : Default
+    Utilization
+        GPU                               : 0 %
+        Memory                            : 0 %
+        Encoder                           : 0 %
+        Decoder                           : 0 %
+        JPEG                              : 0 %
+        OFA                               : 0 %
+    Encoder Stats
+        Active Sessions                   : 0
+        Average FPS                       : 0
+        Average Latency                   : 0
+    FBC Stats
+        Active Sessions                   : 0
+        Average FPS                       : 0
+        Average Latency                   : 0
+    DRAM Encryption Mode
+        Current                           : N/A
+        Pending                           : N/A
+    ECC Mode
+        Current                           : Disabled
+        Pending                           : Disabled
+    ECC Errors
+        Volatile
+            SRAM Correctable              : N/A
+            SRAM Uncorrectable Parity     : N/A
+            SRAM Uncorrectable SEC-DED    : N/A
+            DRAM Correctable              : N/A
+            DRAM Uncorrectable            : N/A
+        Aggregate
+            SRAM Correctable              : N/A
+            SRAM Uncorrectable Parity     : N/A
+            SRAM Uncorrectable SEC-DED    : N/A
+            DRAM Correctable              : N/A
+            DRAM Uncorrectable            : N/A
+            SRAM Threshold Exceeded       : N/A
+        Aggregate Uncorrectable SRAM Sources
+            SRAM L2                       : N/A
+            SRAM SM                       : N/A
+            SRAM Microcontroller          : N/A
+            SRAM PCIE                     : N/A
+            SRAM Other                    : N/A
+    Retired Pages
+        Single Bit ECC                    : N/A
+        Double Bit ECC                    : N/A
+        Pending Page Blacklist            : N/A
+    Remapped Rows
+        Correctable Error                 : 0
+        Uncorrectable Error               : 0
+        Pending                           : No
+        Remapping Failure Occurred        : No
+        Bank Remap Availability Histogram
+            Max                           : 192 bank(s)
+            High                          : 0 bank(s)
+            Partial                       : 0 bank(s)
+            Low                           : 0 bank(s)
+            None                          : 0 bank(s)
+    Temperature
+        GPU Current Temp                  : 37 C
+        GPU T.Limit Temp                  : N/A
+        GPU Shutdown Temp                 : 97 C
+        GPU Slowdown Temp                 : 94 C
+        GPU Max Operating Temp            : 92 C
+        GPU Target Temperature            : 83 C
+        Memory Current Temp               : N/A
+        Memory Max Operating Temp         : N/A
+    GPU Power Readings
+        Average Power Draw                : 100.89 W
+        Instantaneous Power Draw          : 100.88 W
+        Current Power Limit               : 450.00 W
+        Requested Power Limit             : 450.00 W
+        Default Power Limit               : 450.00 W
+        Min Power Limit                   : 100.00 W
+        Max Power Limit                   : 480.00 W
+    GPU Memory Power Readings 
+        Average Power Draw                : N/A
+        Instantaneous Power Draw          : N/A
+    Module Power Readings
+        Average Power Draw                : N/A
+        Instantaneous Power Draw          : N/A
+        Current Power Limit               : N/A
+        Requested Power Limit             : N/A
+        Default Power Limit               : N/A
+        Min Power Limit                   : N/A
+        Max Power Limit                   : N/A
+    Power Smoothing                       : N/A
+    Workload Power Profiles
+        Requested Profiles                : N/A
+        Enforced Profiles                 : N/A
+    Clocks
+        Graphics                          : 1560 MHz
+        SM                                : 1560 MHz
+        Memory                            : 10501 MHz
+        Video                             : 1395 MHz
+    Applications Clocks
+        Graphics                          : N/A
+        Memory                            : N/A
+    Default Applications Clocks
+        Graphics                          : N/A
+        Memory                            : N/A
+    Deferred Clocks
+        Memory                            : N/A
+    Max Clocks
+        Graphics                          : 2130 MHz
+        SM                                : 2130 MHz
+        Memory                            : 10501 MHz
+        Video                             : 1980 MHz
+    Max Customer Boost Clocks
+        Graphics                          : N/A
+    Clock Policy
+        Auto Boost                        : N/A
+        Auto Boost Default                : N/A
+    Voltage
+        Graphics                          : N/A
+    Fabric
+        State                             : N/A
+        Status                            : N/A
+        CliqueId                          : N/A
+        ClusterUUID                       : N/A
+        Health
+            Bandwidth                     : N/A
+            Route Recovery in progress    : N/A
+            Route Unhealthy               : N/A
+            Access Timeout Recovery       : N/A
+    Processes
+        GPU instance ID                   : N/A
+        Compute instance ID               : N/A
+        Process ID                        : 1195
+            Type                          : G
+            Name                          : /usr/lib/xorg/Xorg
+            Used GPU Memory               : 4 MiB
+    Capabilities
+        EGM                               : disabled
+
+
+-- CUDA compiler version (nvcc --version) --
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2025 NVIDIA Corporation
+Built on Wed_Jan_15_19:20:09_PST_2025
+Cuda compilation tools, release 12.8, V12.8.61
+Build cuda_12.8.r12.8/compiler.35404655_0
+
+========== GPU - AMD / ROCm ==========
+rocm-smi not installed.
+
+========== GPU - OpenCL ==========
+clinfo not installed.
+
+========== End Of Report ==========
+Completed.

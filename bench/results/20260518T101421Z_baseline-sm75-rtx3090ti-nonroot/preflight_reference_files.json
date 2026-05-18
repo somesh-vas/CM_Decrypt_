@@ -1,0 +1,57 @@
+{
+  "348864": {
+    "cpu_errorstream_exists": true,
+    "cpu_errorstream_path": "CPU/results/output/errorstream0_348864.bin",
+    "cpu_errorstream_size_bytes": 13018700,
+    "ct_exists": true,
+    "ct_path": "kem/test_vectors/Cipher_Sk/ct_348864.bin",
+    "ct_size_bytes": 4800000,
+    "sk_exists": true,
+    "sk_path": "kem/test_vectors/Cipher_Sk/sk_348864.bin",
+    "sk_size_bytes": 6492
+  },
+  "460896": {
+    "cpu_errorstream_exists": true,
+    "cpu_errorstream_path": "CPU/results/output/errorstream0_460896.bin",
+    "cpu_errorstream_size_bytes": 13096250,
+    "ct_exists": true,
+    "ct_path": "kem/test_vectors/Cipher_Sk/ct_460896.bin",
+    "ct_size_bytes": 7800000,
+    "sk_exists": true,
+    "sk_path": "kem/test_vectors/Cipher_Sk/sk_460896.bin",
+    "sk_size_bytes": 13608
+  },
+  "6688128": {
+    "cpu_errorstream_exists": true,
+    "cpu_errorstream_path": "CPU/results/output/errorstream0_6688128.bin",
+    "cpu_errorstream_size_bytes": 25580200,
+    "ct_exists": true,
+    "ct_path": "kem/test_vectors/Cipher_Sk/ct_6688128.bin",
+    "ct_size_bytes": 10400000,
+    "sk_exists": true,
+    "sk_path": "kem/test_vectors/Cipher_Sk/sk_6688128.bin",
+    "sk_size_bytes": 13932
+  },
+  "6960119": {
+    "cpu_errorstream_exists": true,
+    "cpu_errorstream_path": "CPU/results/output/errorstream0_6960119.bin",
+    "cpu_errorstream_size_bytes": 24749550,
+    "ct_exists": true,
+    "ct_path": "kem/test_vectors/Cipher_Sk/ct_6960119.bin",
+    "ct_size_bytes": 9700000,
+    "sk_exists": true,
+    "sk_path": "kem/test_vectors/Cipher_Sk/sk_6960119.bin",
+    "sk_size_bytes": 13948
+  },
+  "8192128": {
+    "cpu_errorstream_exists": true,
+    "cpu_errorstream_path": "CPU/results/output/errorstream0_8192128.bin",
+    "cpu_errorstream_size_bytes": 31174700,
+    "ct_exists": true,
+    "ct_path": "kem/test_vectors/Cipher_Sk/ct_8192128.bin",
+    "ct_size_bytes": 10400000,
+    "sk_exists": true,
+    "sk_path": "kem/test_vectors/Cipher_Sk/sk_8192128.bin",
+    "sk_size_bytes": 14120
+  }
+}

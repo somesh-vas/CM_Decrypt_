@@ -1,0 +1,146 @@
+{
+  "iteration_id": "20260518T101421Z_baseline-sm75-rtx3090ti-nonroot",
+  "label": "baseline-sm75-rtx3090ti-nonroot",
+  "timestamp_utc": "20260518T101421Z",
+  "arch": "sm_75",
+  "katnum": 50000,
+  "params": [
+    "348864",
+    "460896",
+    "6688128",
+    "6960119",
+    "8192128"
+  ],
+  "skip_ncu": false,
+  "commit_mode": "artifacts",
+  "failure_action": "record-only",
+  "results": [
+    {
+      "param": "348864",
+      "correctness_status": "FAIL",
+      "correctness_returncode": 2,
+      "ncu_status": "SKIP",
+      "ncu_returncode": null,
+      "artifacts": {
+        "param": "348864",
+        "copied": [
+          "outputs/param348864/cpu_errorstream0_reference.bin",
+          "outputs/param348864/gpu_optimised_errorstream0.bin",
+          "profiles/param348864/Profile_GPU_optimised.txt"
+        ],
+        "optimised_metrics": {
+          "profile_found": true
+        },
+        "chien_ncu_metrics": {
+          "ncu_text_found": false
+        }
+      }
+    },
+    {
+      "param": "460896",
+      "correctness_status": "FAIL",
+      "correctness_returncode": 2,
+      "ncu_status": "SKIP",
+      "ncu_returncode": null,
+      "artifacts": {
+        "param": "460896",
+        "copied": [
+          "outputs/param460896/cpu_errorstream0_reference.bin",
+          "outputs/param460896/gpu_optimised_errorstream0.bin",
+          "profiles/param460896/Profile_GPU_optimised.txt"
+        ],
+        "optimised_metrics": {
+          "profile_found": true
+        },
+        "chien_ncu_metrics": {
+          "ncu_text_found": false
+        }
+      }
+    },
+    {
+      "param": "6688128",
+      "correctness_status": "FAIL",
+      "correctness_returncode": 2,
+      "ncu_status": "SKIP",
+      "ncu_returncode": null,
+      "artifacts": {
+        "param": "6688128",
+        "copied": [
+          "outputs/param6688128/cpu_errorstream0_reference.bin",
+          "outputs/param6688128/gpu_optimised_errorstream0.bin",
+          "profiles/param6688128/Profile_GPU_optimised.txt"
+        ],
+        "optimised_metrics": {
+          "profile_found": true
+        },
+        "chien_ncu_metrics": {
+          "ncu_text_found": false
+        }
+      }
+    },
+    {
+      "param": "6960119",
+      "correctness_status": "FAIL",
+      "correctness_returncode": 2,
+      "ncu_status": "SKIP",
+      "ncu_returncode": null,
+      "artifacts": {
+        "param": "6960119",
+        "copied": [
+          "outputs/param6960119/cpu_errorstream0_reference.bin",
+          "outputs/param6960119/gpu_optimised_errorstream0.bin",
+          "profiles/param6960119/Profile_GPU_optimised.txt",
+          "profiles/param6960119/ncu/GPU_Optimised/logs/Profile_optimised_6960119_KAT50000_sm_75.txt"
+        ],
+        "optimised_metrics": {
+          "profile_found": true,
+          "ciphertexts": 50000,
+          "batch_size": 50000,
+          "h2d_ms": 1.256,
+          "syndrome_ms": 19.658,
+          "bm_ms": 30.788,
+          "chien_ms": 126.94,
+          "d2h_ms": 3.342,
+          "wall_ms": 680.657,
+          "overhead_ms": 498.672,
+          "throughput_ct_s": 73458.48,
+          "kernel_ms": 177.386,
+          "kernel_ct_s": 281871.1735988184,
+          "chien_kernel_pct": 71.56145355326801
+        },
+        "chien_ncu_metrics": {
+          "ncu_text_found": true,
+          "ncu_source_text": "/home/someshva/someshvas/CM_Decrypt__codex_bench/bench/results/20260518T101421Z_baseline-sm75-rtx3090ti-nonroot/profiles/param6960119/ncu/GPU_Optimised/logs/Profile_optimised_6960119_KAT50000_sm_75.txt",
+          "ncu_chien_issue_slots_busy_pct": 68.87,
+          "ncu_chien_sm_busy_pct": 86.56,
+          "ncu_chien_memory_throughput_pct": 0.08,
+          "ncu_chien_dram_throughput_pct": 0.08,
+          "ncu_chien_duration_ms": 126875264.0,
+          "ncu_chien_waves_per_sm": 49.6,
+          "ncu_chien_compute_throughput_pct": 86.42
+        }
+      }
+    },
+    {
+      "param": "8192128",
+      "correctness_status": "FAIL",
+      "correctness_returncode": 2,
+      "ncu_status": "SKIP",
+      "ncu_returncode": null,
+      "artifacts": {
+        "param": "8192128",
+        "copied": [
+          "outputs/param8192128/cpu_errorstream0_reference.bin",
+          "outputs/param8192128/gpu_optimised_errorstream0.bin",
+          "profiles/param8192128/Profile_GPU_optimised.txt"
+        ],
+        "optimised_metrics": {
+          "profile_found": true
+        },
+        "chien_ncu_metrics": {
+          "ncu_text_found": false
+        }
+      }
+    }
+  ]
+}
