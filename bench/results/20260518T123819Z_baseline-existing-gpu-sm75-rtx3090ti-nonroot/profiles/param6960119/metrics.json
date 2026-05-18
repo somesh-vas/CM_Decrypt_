@@ -1,0 +1,29 @@
+{
+  "param": "6960119",
+  "optimised_metrics": {
+    "profile_found": true,
+    "ciphertexts": 50000,
+    "batch_size": 50000,
+    "h2d_ms": 1.453,
+    "syndrome_ms": 19.684,
+    "bm_ms": 30.791,
+    "chien_ms": 126.98,
+    "d2h_ms": 3.335,
+    "wall_ms": 670.519,
+    "overhead_ms": 488.276,
+    "throughput_ct_s": 74569.15,
+    "kernel_ms": 177.455,
+    "kernel_ct_s": 281761.5733566256,
+    "chien_kernel_pct": 71.55616916964864
+  },
+  "chien_ncu_metrics": {
+    "ncu_text_found": true,
+    "ncu_chien_issue_slots_busy_pct": 68.87,
+    "ncu_chien_sm_busy_pct": 86.56,
+    "ncu_chien_memory_throughput_pct": 0.08,
+    "ncu_chien_dram_throughput_pct": 0.08,
+    "ncu_chien_duration_ms": 126875264.0,
+    "ncu_chien_waves_per_sm": 49.6,
+    "ncu_chien_compute_throughput_pct": 86.42
+  }
+}
