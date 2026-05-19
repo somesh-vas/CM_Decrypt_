@@ -1,0 +1,11 @@
+make: Entering directory '/tmp/cmdecrypt_baseline_8192128_2730970'
+===== Compare CPU vs GPU-Optimised errorstreams =====
+[FAIL] param348864 missing CPU file: ../CPU/results/output/errorstream0_348864.bin
+[FAIL] param460896 missing CPU file: ../CPU/results/output/errorstream0_460896.bin
+[FAIL] param6688128 missing CPU file: ../CPU/results/output/errorstream0_6688128.bin
+[FAIL] param6960119 missing CPU file: ../CPU/results/output/errorstream0_6960119.bin
+[FAIL] param8192128 missing CPU file: ../CPU/results/output/errorstream0_8192128.bin
+COMPARE_STATUS=FAIL
+make[1]: *** [Makefile:91: compare] Error 1
+make: *** [Makefile:79: compare-opt] Error 2
+make: Leaving directory '/tmp/cmdecrypt_baseline_8192128_2730970'
