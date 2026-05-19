@@ -272,7 +272,7 @@ void decrypt(unsigned char (*ciphertexts)[crypto_kem_CIPHERTEXTBYTES]) {
    }
         // 2) BM
 
-        berlekampMasseyKernel<<< dim3(1, actualBatch), 128 >>>(d_syn, d_loc_soa);
+        berlekampMasseyKernel<<< dim3(1, actualBatch), 96 >>>(d_syn, d_loc_soa);
         cudaDeviceSynchronize();
 
         // 3) Warp Chien

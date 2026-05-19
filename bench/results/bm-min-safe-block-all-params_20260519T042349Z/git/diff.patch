@@ -1,0 +1,39 @@
+diff --git a/GPU_Optimised/param/param348864/src/cuda/Decrypt.cu b/GPU_Optimised/param/param348864/src/cuda/Decrypt.cu
+index c5debf5..b03e354 100644
+--- a/GPU_Optimised/param/param348864/src/cuda/Decrypt.cu
++++ b/GPU_Optimised/param/param348864/src/cuda/Decrypt.cu
+@@ -272,7 +272,7 @@ void decrypt(unsigned char (*ciphertexts)[crypto_kem_CIPHERTEXTBYTES]) {
+    }
+         // 2) BM
+ 
+-        berlekampMasseyKernel<<< dim3(1, actualBatch), 128 >>>(d_syn, d_loc_soa);
++        berlekampMasseyKernel<<< dim3(1, actualBatch), 96 >>>(d_syn, d_loc_soa);
+         cudaDeviceSynchronize();
+ 
+         // 3) Warp Chien
+diff --git a/GPU_Optimised/param/param6688128/src/cuda/Decrypt.cu b/GPU_Optimised/param/param6688128/src/cuda/Decrypt.cu
+index 614457b..6f27267 100644
+--- a/GPU_Optimised/param/param6688128/src/cuda/Decrypt.cu
++++ b/GPU_Optimised/param/param6688128/src/cuda/Decrypt.cu
+@@ -267,7 +267,7 @@ void decrypt(unsigned char (*ciphertexts)[crypto_kem_CIPHERTEXTBYTES]) {
+    }
+         // 2) BM
+ 
+-        berlekampMasseyKernel<<< dim3(1, actualBatch), 256 >>>(d_syn, d_loc_soa);
++        berlekampMasseyKernel<<< dim3(1, actualBatch), 160 >>>(d_syn, d_loc_soa);
+         cudaDeviceSynchronize();
+ 
+         // 3) Warp Chien
+diff --git a/GPU_Optimised/param/param8192128/src/cuda/Decrypt.cu b/GPU_Optimised/param/param8192128/src/cuda/Decrypt.cu
+index 4e78529..11cc0ea 100644
+--- a/GPU_Optimised/param/param8192128/src/cuda/Decrypt.cu
++++ b/GPU_Optimised/param/param8192128/src/cuda/Decrypt.cu
+@@ -267,7 +267,7 @@ void decrypt(unsigned char (*ciphertexts)[crypto_kem_CIPHERTEXTBYTES]) {
+    }
+         // 2) BM
+ 
+-        berlekampMasseyKernel<<< dim3(1, actualBatch), 256 >>>(d_syn, d_loc_soa);
++        berlekampMasseyKernel<<< dim3(1, actualBatch), 160 >>>(d_syn, d_loc_soa);
+         cudaDeviceSynchronize();
+ 
+         // 3) Warp Chien

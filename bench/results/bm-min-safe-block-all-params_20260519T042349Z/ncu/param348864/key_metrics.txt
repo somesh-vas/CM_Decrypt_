@@ -1,0 +1,25 @@
+21:    Compute (SM) Throughput           %        88.69
+24:    INF   This workload is utilizing greater than 80.0% of the available compute or memory performance of the device.   
+26:          Start by analyzing workloads in the Compute Workload Analysis section.                                        
+31:          (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#roofline) for more details on roofline      
+44:    Section: Compute Workload Analysis
+50:    Issue Slots Busy               %        72.82
+52:    SM Busy                        %        75.30
+60:          Guide (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#metrics-decoder) or hover over the    
+92:    No Eligible                            %        27.16
+94:    Eligible Warps Per Scheduler        warp         2.53
+109:          barrier. A high number of warps waiting at a barrier is commonly caused by diverging code paths before a      
+110:          barrier. This causes some warps to wait a long time until other warps reach the synchronization point.        
+112:          threads or greater, consider splitting it into smaller groups. This can increase eligible warps without       
+113:          affecting occupancy, unless shared memory becomes a new occupancy limiter. Also, try to identify which        
+114:          barrier instruction causes the most stalls, and optimize the code executed before that synchronization point  
+120:          (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#metrics-reference) provides more details    
+149:    Registers Per Thread             register/thread              27
+150:    Shared Memory Configuration Size           Kbyte           65.54
+151:    Driver Shared Memory Per Block       Kbyte/block            1.02
+152:    Dynamic Shared Memory Per Block       byte/block               0
+153:    Static Shared Memory Per Block       Kbyte/block            1.58
+169:    Block Limit Shared Mem                block           24
+173:    Achieved Occupancy                        %        98.99
+204:          This kernel has uncoalesced global accesses resulting in a total of 3000000 excessive sectors (82% of the     
+205:          total 3650000 sectors). Check the L2 Theoretical Sectors Global Excessive table for the primary source        

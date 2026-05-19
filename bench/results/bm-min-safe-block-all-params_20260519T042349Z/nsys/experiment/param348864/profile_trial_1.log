@@ -1,0 +1,13 @@
+WARNING: CPU context switch tracing not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+Error opening optimised GPU test vectors: No such file or directory
+fopen("../../results/output/errorstream0_348864.bin"): No such file or directory
+Collecting data...
+Generating '/home/someshva/nsys-report-c5f0.qdstrm'
+[1/1] [0%                          ] nsys_bm_safe_348864_experiment_1_2744014.nsys-rep[1/1] [0%                          ] nsys_bm_safe_348864_experiment_1_2744014.nsys-rep[1/1] [6%                          ] nsys_bm_safe_348864_experiment_1_2744014.nsys-rep[1/1] [===========51%              ] nsys_bm_safe_348864_experiment_1_2744014.nsys-rep[1/1] [=======================95%  ] nsys_bm_safe_348864_experiment_1_2744014.nsys-rep[1/1] [=======================96%  ] nsys_bm_safe_348864_experiment_1_2744014.nsys-rep[1/1] [========================100%] nsys_bm_safe_348864_experiment_1_2744014.nsys-rep[1/1] [========================100%] nsys_bm_safe_348864_experiment_1_2744014.nsys-rep
+Generated:
+    /tmp/nsys_bm_safe_348864_experiment_1_2744014.nsys-rep
+Generating SQLite file /tmp/nsys_bm_safe_348864_experiment_1_2744014.sqlite from /tmp/nsys_bm_safe_348864_experiment_1_2744014.nsys-rep
+Processing [/tmp/nsys_bm_safe_348864_experiment_1_2744014.sqlite] with [/opt/nvidia/nsight-systems/2024.6.2/host-linux-x64/reports/cuda_gpu_kern_sum.py] to [bench/results/bm-min-safe-block-all-params_20260519T042349Z/nsys/experiment/param348864/trial_1_cuda_gpu_kern_sum.csv]... PROCESSED
+
