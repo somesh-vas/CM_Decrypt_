@@ -1,0 +1,9 @@
+===== Compare CPU vs GPU-Optimised errorstreams =====
+[PASS] param348864 match
+[PASS] param460896 match
+[PASS] param6688128 match
+[FAIL] param6960119 mismatch
+[PASS] param8192128 match
+COMPARE_STATUS=FAIL
+make[1]: *** [Makefile:91: compare] Error 1
+make: *** [Makefile:79: compare-opt] Error 2

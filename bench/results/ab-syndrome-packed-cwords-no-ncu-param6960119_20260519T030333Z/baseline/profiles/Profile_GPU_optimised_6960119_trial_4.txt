@@ -1,0 +1,11 @@
+===== GPU optimised =====
+ciphertexts processed : 50000
+batch size            : 50000
+H2D                   : 1.564 ms
+syndrome              : 19.605 ms
+Berlekamp-Massey      : 30.786 ms
+Chien search          : 126.950 ms
+D2H                   : 3.330 ms
+wall                  : 723.222 ms
+overhead              : 540.986 ms
+throughput            : 69135.08 ct/s
