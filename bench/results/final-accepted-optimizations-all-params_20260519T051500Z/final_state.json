@@ -1,0 +1,7 @@
+{
+  "branch": "codex-bench-system",
+  "head": "17eba578f971523e318208c8de1066015c70c00b",
+  "accepted_commit_is_ancestor": true,
+  "instrumentation_commit_is_head": true,
+  "decision_log": "bench/results/optimization_decision_log.md"
+}

@@ -1,0 +1,9 @@
+{
+  "generated_utc": "20260519T051841Z",
+  "baseline_ref": "origin/codex-bench-system",
+  "accepted_commit": "66c80273eb33109b0b082752f7106e12494cc6d1",
+  "instrumented_optimized_commit": "17eba578f971523e318208c8de1066015c70c00b",
+  "arch": "sm_75",
+  "katnum": 50000,
+  "trials_per_variant": 5
+}

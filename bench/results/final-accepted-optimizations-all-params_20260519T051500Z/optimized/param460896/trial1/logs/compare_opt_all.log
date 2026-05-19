@@ -1,0 +1,11 @@
+$ make compare-opt PARAM=all
+
+===== Compare CPU vs GPU-Optimised errorstreams =====
+[PASS] param348864 match
+[PASS] param460896 match
+[PASS] param6688128 match
+[PASS] param6960119 match
+[PASS] param8192128 match
+COMPARE_STATUS=PASS
+
+[exit_code] 0

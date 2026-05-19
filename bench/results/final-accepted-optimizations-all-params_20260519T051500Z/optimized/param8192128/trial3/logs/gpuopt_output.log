@@ -1,0 +1,8 @@
+$ make gpuopt-output PARAM=8192128 KATNUM=50000 ARCH=sm_75
+
+===== GPU-Optimised Output (PARAM=8192128, KATNUM=50000, ARCH=sm_75) =====
+===== Output param8192128 (ARCH=sm_75, KATNUM=50000) =====
+Output stream stored at:   ../../results/output/errorstream0_8192128.bin
+Profile details stored at: ../../results/profile/Profile_GPU_optimised_8192128.txt
+
+[exit_code] 0

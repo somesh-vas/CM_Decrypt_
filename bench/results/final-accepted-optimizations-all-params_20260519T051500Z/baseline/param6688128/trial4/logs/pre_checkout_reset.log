@@ -1,0 +1,5 @@
+$ git reset --hard
+
+HEAD is now at 4913ddc bench: add successful baseline metrics history
+
+[exit_code] 0

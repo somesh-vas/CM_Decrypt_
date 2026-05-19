@@ -1,0 +1,10 @@
+$ git status --short
+
+ M GPU_Optimised/param/param348864/src/cuda/Decrypt.cu
+ M GPU_Optimised/param/param460896/src/cuda/Decrypt.cu
+ M GPU_Optimised/param/param6688128/src/cuda/Decrypt.cu
+ M GPU_Optimised/param/param8192128/src/cuda/Decrypt.cu
+?? bench/final_accepted_optimization_summary.py
+?? bench/results/final-accepted-optimizations-all-params_20260519T051500Z/
+
+[exit_code] 0
