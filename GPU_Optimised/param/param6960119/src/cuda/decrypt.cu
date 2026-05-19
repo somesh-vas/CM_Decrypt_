@@ -399,7 +399,7 @@ int decrypt(unsigned char (*ciphertexts)[crypto_kem_CIPHERTEXTBYTES]) {
         // 2) BM
 
         clock_gettime(CLOCK_MONOTONIC, &stage_start);
-        berlekampMasseyKernel<<< dim3(1, actualBatch), 256 >>>(d_syn, d_loc_soa);
+        berlekampMasseyKernel<<< dim3(1, actualBatch), 128 >>>(d_syn, d_loc_soa);
         cudaDeviceSynchronize();
         clock_gettime(CLOCK_MONOTONIC, &stage_end);
         bm_ms = (float)elapsed_wall_ms(&stage_start, &stage_end);

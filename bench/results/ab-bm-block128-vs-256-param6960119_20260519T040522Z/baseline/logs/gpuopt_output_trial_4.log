@@ -1,0 +1,4 @@
+===== GPU-Optimised Output (PARAM=6960119, KATNUM=50000, ARCH=sm_75) =====
+===== Output param6960119 (ARCH=sm_75, KATNUM=50000) =====
+Output stream stored at:   ../../results/output/errorstream0_6960119.bin
+Profile details stored at: ../../results/profile/Profile_GPU_optimised_6960119.txt

@@ -1,0 +1,213 @@
+2:==PROF== Profiling "berlekampMasseyKernel": 0%....50%....100% - 40 passes
+3-==PROF== Disconnected from process 2743103
+4-[2743103] decrypt_gpu_optimised_6960119@127.0.0.1
+5:  berlekampMasseyKernel(const unsigned short *, unsigned short *) (1, 50000, 1)x(128, 1, 1), Context 1, Stream 7, Device 0, CC 8.6
+6-    Section: GPU Speed Of Light Throughput
+7-    ----------------------- ----------- ------------
+8-    Metric Name             Metric Unit Metric Value
+9-    ----------------------- ----------- ------------
+10-    DRAM Frequency                  Ghz        10.49
+11-    SM Frequency                    Ghz         1.56
+12-    Elapsed Cycles                cycle     33355199
+13-    Memory Throughput                 %        68.67
+14-    DRAM Throughput                   %         0.17
+15-    Duration                         ms        21.39
+16:    L1/TEX Cache Throughput           %        68.74
+17-    L2 Cache Throughput               %         0.80
+18-    SM Active Cycles              cycle  33320017.12
+19-    Compute (SM) Throughput           %        81.05
+20-    ----------------------- ----------- ------------
+21-
+22-    INF   This workload is utilizing greater than 80.0% of the available compute or memory performance of the device.   
+23-          To further improve performance, work will likely need to be shifted from the most utilized to another unit.   
+24:          Start by analyzing workloads in the Compute Workload Analysis section.                                        
+25-
+26-    Section: GPU Speed Of Light Roofline Chart
+27-    INF   The ratio of peak float (fp32) to double (fp64) performance on this device is 64:1. The workload achieved 0%  
+28-          of this device's fp32 peak performance and 0% of its fp64 peak performance. See the Kernel Profiling Guide    
+29-          (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#roofline) for more details on roofline      
+30-          analysis.                                                                                                     
+31-
+32-    Section: PM Sampling
+33-    ------------------------- ----------- ------------
+34-    Metric Name               Metric Unit Metric Value
+35-    ------------------------- ----------- ------------
+36-    Maximum Buffer Size             Mbyte        46.33
+37-    Dropped Samples                sample            0
+38-    Maximum Sampling Interval          us            8
+39-    # Pass Groups                                    2
+40-    ------------------------- ----------- ------------
+41-
+42:    Section: Compute Workload Analysis
+43-    -------------------- ----------- ------------
+44-    Metric Name          Metric Unit Metric Value
+45-    -------------------- ----------- ------------
+46-    Executed Ipc Active   inst/cycle         2.88
+47-    Executed Ipc Elapsed  inst/cycle         2.88
+48-    Issue Slots Busy               %        72.08
+49-    Issued Ipc Active     inst/cycle         2.88
+50-    SM Busy                        %        81.12
+51-    -------------------- ----------- ------------
+52-
+53-    OPT   ALU is the highest-utilized pipeline (81.1%) based on active cycles, taking into account the rates of its     
+54-          different instructions. It executes integer and logic operations. The pipeline is over-utilized and likely a  
+55-          performance bottleneck. Based on the number of executed instructions, the highest utilized pipeline (81.1%)   
+56-          is ALU. It executes integer and logic operations. Comparing the two, the overall pipeline utilization         
+57-          appears to be caused by frequent, low-latency instructions. See the Kernel Profiling Guide                    
+58-          (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#metrics-decoder) or hover over the          
+59:          pipeline name to understand the workloads handled by each pipeline. The Instruction Statistics section shows  
+60:          the mix of executed instructions for this workload. Check the Warp State Statistics section for which         
+61-          reasons cause warps to stall.                                                                                 
+62-
+63:    Section: Memory Workload Analysis
+64-    ---------------------------- ----------- ------------
+65-    Metric Name                  Metric Unit Metric Value
+66-    ---------------------------- ----------- ------------
+67-    Memory Throughput                Gbyte/s         1.68
+68-    Mem Busy                               %        39.67
+69-    Max Bandwidth                          %        68.67
+70:    L1/TEX Hit Rate                        %         6.24
+71-    L2 Compression Success Rate            %            0
+72-    L2 Compression Ratio                                0
+73-    L2 Compression Input Sectors      sector            0
+74-    L2 Hit Rate                            %        88.97
+75-    Mem Pipes Busy                         %        68.67
+76-    ---------------------------- ----------- ------------
+77-
+78:    Section: Memory Workload Analysis Tables
+79-    OPT   Est. Speedup: 21.98%                                                                                          
+80-          The memory access pattern for global loads from L1TEX might not be optimal. On average, only 21.8 of the 32   
+81-          bytes transmitted per sector are utilized by each thread. This could possibly be caused by a stride between   
+82-          threads. Check the Source Counters section for uncoalesced global loads.                                      
+83-    ----- --------------------------------------------------------------------------------------------------------------
+84-    OPT   Est. Speedup: 64.38%                                                                                          
+85-          The memory access pattern for global stores to L1TEX might not be optimal. On average, only 2.0 of the 32     
+86-          bytes transmitted per sector are utilized by each thread. This could possibly be caused by a stride between   
+87-          threads. Check the Source Counters section for uncoalesced global stores.                                     
+88-
+89:    Section: Scheduler Statistics
+90-    ---------------------------- ----------- ------------
+91-    Metric Name                  Metric Unit Metric Value
+92-    ---------------------------- ----------- ------------
+93-    One or More Eligible                   %        72.08
+94-    Issued Warp Per Scheduler                        0.72
+95-    No Eligible                            %        27.92
+96-    Active Warps Per Scheduler          warp        11.90
+97-    Eligible Warps Per Scheduler        warp         2.64
+98-    ---------------------------- ----------- ------------
+99-
+100:    Section: Warp State Statistics
+101-    ---------------------------------------- ----------- ------------
+102-    Metric Name                              Metric Unit Metric Value
+103-    ---------------------------------------- ----------- ------------
+104-    Warp Cycles Per Issued Instruction             cycle        16.51
+105-    Warp Cycles Per Executed Instruction           cycle        16.52
+106-    Avg. Active Threads Per Warp                                24.98
+107-    Avg. Not Predicated Off Threads Per Warp                    24.24
+108-    ---------------------------------------- ----------- ------------
+109-
+110-    OPT   Est. Local Speedup: 42.99%                                                                                    
+111-          On average, each warp of this workload spends 7.1 cycles being stalled waiting for sibling warps at a CTA     
+112-          barrier. A high number of warps waiting at a barrier is commonly caused by diverging code paths before a      
+113-          barrier. This causes some warps to wait a long time until other warps reach the synchronization point.        
+114-          Whenever possible, try to divide up the work into blocks of uniform workloads. If the block size is 512       
+115-          threads or greater, consider splitting it into smaller groups. This can increase eligible warps without       
+116-          affecting occupancy, unless shared memory becomes a new occupancy limiter. Also, try to identify which        
+117-          barrier instruction causes the most stalls, and optimize the code executed before that synchronization point  
+118-          first. This stall type represents about 43.0% of the total average of 16.5 cycles between issuing two         
+119-          instructions.                                                                                                 
+120-    ----- --------------------------------------------------------------------------------------------------------------
+121-    INF   Check the Warp Stall Sampling (All Samples) table for the top stall locations in your source based on         
+122-          sampling data. The Kernel Profiling Guide                                                                     
+123-          (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#metrics-reference) provides more details    
+124-          on each stall reason.                                                                                         
+125-
+126:    Section: Instruction Statistics
+127-    ---------------------------------------- ----------- ------------
+128-    Metric Name                              Metric Unit Metric Value
+129-    ---------------------------------------- ----------- ------------
+130-    Avg. Executed Instructions Per Scheduler        inst  24016883.48
+131-    Executed Instructions                           inst   8069672850
+132-    Avg. Issued Instructions Per Scheduler          inst  24017535.18
+133-    Issued Instructions                             inst   8069891822
+134-    ---------------------------------------- ----------- ------------
+135-
+136:    Section: Launch Statistics
+137-    -------------------------------- --------------- ---------------
+138-    Metric Name                          Metric Unit    Metric Value
+139-    -------------------------------- --------------- ---------------
+140-    Block Size                                                   128
+141-    Function Cache Configuration                     CachePreferNone
+142-    Grid Size                                                  50000
+143-    Registers Per Thread             register/thread              31
+144:    Shared Memory Configuration Size           Kbyte           65.54
+145:    Driver Shared Memory Per Block       Kbyte/block            1.02
+146:    Dynamic Shared Memory Per Block       byte/block               0
+147:    Static Shared Memory Per Block       Kbyte/block            2.91
+148-    # SMs                                         SM              84
+149-    Stack Size                                                  1024
+150-    Threads                                   thread         6400000
+151-    # TPCs                                                        42
+152-    Enabled TPC IDs                                              all
+153-    Uses Green Context                                             0
+154-    Waves Per SM                                               49.60
+155-    -------------------------------- --------------- ---------------
+156-
+157:    Section: Occupancy
+158-    ------------------------------- ----------- ------------
+159-    Metric Name                     Metric Unit Metric Value
+160-    ------------------------------- ----------- ------------
+161-    Block Limit SM                        block           16
+162-    Block Limit Registers                 block           16
+163-    Block Limit Shared Mem                block           16
+164-    Block Limit Warps                     block           12
+165-    Theoretical Active Warps per SM        warp           48
+166:    Theoretical Occupancy                     %          100
+167:    Achieved Occupancy                        %        99.20
+168-    Achieved Active Warps Per SM           warp        47.62
+169-    ------------------------------- ----------- ------------
+170-
+171-    Section: GPU and Memory Workload Distribution
+172-    -------------------------- ----------- ------------
+173-    Metric Name                Metric Unit Metric Value
+174-    -------------------------- ----------- ------------
+175-    Average DRAM Active Cycles       cycle    375021.33
+176-    Total DRAM Elapsed Cycles        cycle   2693108736
+177-    Average L1 Active Cycles         cycle  33320017.12
+178-    Total L1 Elapsed Cycles          cycle   2801429808
+179-    Average L2 Active Cycles         cycle   3645059.40
+180-    Total L2 Elapsed Cycles          cycle   1555567920
+181-    Average SM Active Cycles         cycle  33320017.12
+182-    Total SM Elapsed Cycles          cycle   2801429808
+183-    Average SMSP Active Cycles       cycle  33319086.21
+184-    Total SMSP Elapsed Cycles        cycle  11205719232
+185-    -------------------------- ----------- ------------
+186-
+187-    Section: Source Counters
+188-    ------------------------- ----------- ------------
+189-    Metric Name               Metric Unit Metric Value
+190-    ------------------------- ----------- ------------
+191-    Branch Instructions Ratio           %         0.06
+192-    Branch Instructions              inst    505058350
+193-    Branch Efficiency                   %        89.15
+194-    Avg. Divergent Branches                  105332.29
+195-    ------------------------- ----------- ------------
+196-
+197-    OPT   Est. Speedup: 9.424%                                                                                          
+198-          This kernel has uncoalesced global accesses resulting in a total of 5943750 excessive sectors (84% of the     
+199-          total 7093750 sectors). Check the L2 Theoretical Sectors Global Excessive table for the primary source        
+200-          locations. The CUDA Programming Guide                                                                         
+201-          (https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#device-memory-accesses) has additional      
+202-          information on reducing uncoalesced device memory accesses.                                                   
+203-
+204-Traceback (most recent call last):
+205-  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+206-  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+207-  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+208-  File "<frozen importlib._bootstrap>", line 1176, in exec_module
+209-  File "<frozen site>", line 635, in <module>
+210-  File "<frozen site>", line 621, in main
+211-  File "<frozen site>", line 364, in addusersitepackages
+212-  File "<frozen site>", line 247, in addsitedir
+213-  File "<frozen site>", line 190, in addpackage
+214-LookupError: unknown encoding: utf-8-sig
