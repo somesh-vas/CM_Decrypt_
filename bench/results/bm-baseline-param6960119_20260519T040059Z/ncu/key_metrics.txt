@@ -1,0 +1,23 @@
+3:==WARNING== Launching the workload is taking more time than expected. If this continues to hang, terminate the profile and re-try by profiling the range of all related launches using '--replay-mode range'. See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#replay for more details.
+21:    Compute (SM) Throughput           %        67.18
+24:    INF   Compute and Memory are well-balanced: To reduce runtime, both computation and memory traffic must be reduced. 
+25:          Check both the Compute Workload Analysis and Memory Workload Analysis sections.                               
+30:          (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#roofline) for more details on roofline      
+43:    Section: Compute Workload Analysis
+49:    Issue Slots Busy               %        64.37
+51:    SM Busy                        %        67.24
+59:          Guide (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#metrics-decoder) or hover over the    
+96:    No Eligible                            %        35.63
+98:    Eligible Warps Per Scheduler        warp         1.63
+116:          threads or greater, consider splitting it into smaller groups. This can increase eligible warps without       
+117:          affecting occupancy, unless shared memory becomes a new occupancy limiter. Also, try to identify which        
+124:          (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#metrics-reference) provides more details    
+144:    Registers Per Thread             register/thread              31
+145:    Shared Memory Configuration Size           Kbyte           32.77
+146:    Driver Shared Memory Per Block       Kbyte/block            1.02
+147:    Dynamic Shared Memory Per Block       byte/block               0
+148:    Static Shared Memory Per Block       Kbyte/block            2.91
+164:    Block Limit Shared Mem                block            8
+168:    Achieved Occupancy                        %        99.57
+199:          This kernel has uncoalesced global accesses resulting in a total of 5943750 excessive sectors (84% of the     
+200:          total 7093750 sectors). Check the L2 Theoretical Sectors Global Excessive table for the primary source        
