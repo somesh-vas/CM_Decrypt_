@@ -127,34 +127,37 @@ __global__ void SyndromeKernel(
     gf        * __restrict__ d_syndromes)
 {
     // ---- Shared memory (static) ----
-    __shared__ gf c[sb];              // unpacked bits   (sb ≤ 24576)
+    __shared__ uint32_t c_words[(sb + 31) / 32];
     __shared__ gf s_out[2 * SYS_T];   // 2·t accumulators
 
     const int tid    = threadIdx.x;
     const int ct     = blockIdx.x;               // one block per CT
 
-    // 1) zero the unpack buffer, including the padded bits at the end.
-    for (int bit = tid; bit < sb; bit += blockDim.x) {
-        c[bit] = 0;
-    }
-    __syncthreads();
+    const int c_word_count = (sb + 31) / 32;
 
-    // 2) unpack every ciphertext byte. This is slightly less vectorised than
-    // uchar4 loading, but it correctly handles 6960119's 194-byte syndrome.
-    for (int byte = tid; byte < SYND_BYTES; byte += blockDim.x) {
-        unsigned value = d_ciphertexts[ct * SYND_BYTES + byte];
-        int baseBit = byte << 3;
+    // 1) load packed ciphertext words into shared memory.
+    for (int word = tid; word < c_word_count; word += blockDim.x) {
+        uint32_t packed = 0;
+        const int byte_base = word << 2;
 
         #pragma unroll
-        for (int b = 0; b < 8; ++b) {
-            if (baseBit + b < sb) {
-                c[baseBit + b] = (value >> b) & 1u;
+        for (int k = 0; k < 4; ++k) {
+            const int byte_idx = byte_base + k;
+            if (byte_idx < SYND_BYTES) {
+                packed |= ((uint32_t)d_ciphertexts[ct * SYND_BYTES + byte_idx]) << (8 * k);
             }
         }
+
+        const int remaining_bits = sb - (word << 5);
+        if (remaining_bits > 0 && remaining_bits < 32) {
+            packed &= ((1u << remaining_bits) - 1u);
+        }
+
+        c_words[word] = packed;
     }
     __syncthreads();
 
-    // 3) dot-product with inverse table
+    // 2) dot-product with inverse table
     if (tid < 2 * SYS_T) {
         const int stride = 2 * SYS_T;
         const gf *col = d_inverse_elements + tid;
@@ -162,7 +165,9 @@ __global__ void SyndromeKernel(
         gf acc = 0;
         #pragma unroll 8
         for (int bit = 0; bit < sb; ++bit) {
-            gf mask = -(gf)(c[bit] & 1u);   // 0 or 0xFFFF
+            const uint32_t packed = c_words[bit >> 5];
+            const gf cbit = (gf)((packed >> (bit & 31)) & 1u);
+            gf mask = -(gf)cbit;   // 0 or 0xFFFF
             acc ^= (col[0] & mask);
             col += stride;
         }

@@ -1,0 +1,19 @@
+3:==WARNING== Launching the workload is taking more time than expected. If this continues to hang, terminate the profile and re-try by profiling the range of all related launches using '--replay-mode range'. See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#replay for more details.
+92:          The memory access pattern for shared stores might not be optimal and causes on average a 1.1 - way bank       
+93:          conflict across all 500000 shared store requests.This results in 72100 bank conflicts,  which represent       
+94:          12.61% of the overall 571609 wavefronts for shared stores. Check the Source Counters section for uncoalesced  
+95:          shared stores.                                                                                                
+103:    No Eligible                            %        41.54
+105:    Eligible Warps Per Scheduler        warp         1.48
+115:          number of eligible warps, avoid possible load imbalances due to highly different execution durations per      
+129:          On average, each warp of this workload spends 12.8 cycles being stalled waiting for a scoreboard dependency   
+134:          used data to shared memory. This stall type represents about 61.9% of the total average of 20.6 cycles        
+159:    Registers Per Thread             register/thread              22
+160:    Shared Memory Configuration Size           Kbyte           16.38
+161:    Driver Shared Memory Per Block       Kbyte/block            1.02
+162:    Dynamic Shared Memory Per Block       byte/block               0
+163:    Static Shared Memory Per Block        byte/block             672
+179:    Block Limit Shared Mem                block            9
+183:    Achieved Occupancy                        %       103.38
+214:          This kernel has uncoalesced global accesses resulting in a total of 535006250 excessive sectors (31% of the   
+215:          total 1700156250 sectors). Check the L2 Theoretical Sectors Global Excessive table for the primary source     
