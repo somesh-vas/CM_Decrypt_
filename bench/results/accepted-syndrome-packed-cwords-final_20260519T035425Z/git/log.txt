@@ -1,0 +1,12 @@
+f652ddc opt: roll out packed shared ciphertext words to winning Syndrome kernels
+97bbf56 opt: test packed shared ciphertext words for 8192128 Syndrome
+1090b92 opt: accept packed shared ciphertext words for 6960119 Syndrome
+dda7801 bench: validate packed cwords Syndrome timing without NCU
+4913ddc bench: add successful baseline metrics history
+a2cb630 bench: add successful baseline 6960119 metrics
+a49c4d7 bench: add successful baseline summary
+24587ce bench: publish 20260518T112041Z_baseline-regenerate-gpuopt-compare-cpu summaries
+ff81e56 bench: record 20260518T105537Z_baseline-sm75-rtx3090ti-nonroot
+47295de bench: compare existing outputs 20260518T103519Z_baseline-existing-bin-compare
+c7fd37e bench: add compare-only existing output checker
+39e1f64 bench: record 20260518T101421Z_baseline-sm75-rtx3090ti-nonroot
