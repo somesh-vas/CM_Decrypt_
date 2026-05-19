@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 200809L
+
 /*
  * Optimised CUDA decryption driver for the `348864` parameter family.
  *
@@ -11,8 +13,115 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <time.h>
+#include <unistd.h>
 
 using C4 = uchar4;                  // four packed ciphertext bytes
+
+static const char profile_label[] = "GPU optimised";
+#define MAX_RUNTIME_PATH 4096
+
+typedef struct {
+    float h2d_ms;
+    float synd_ms;
+    float bm_ms;
+    float chien_ms;
+    float d2h_ms;
+} timing_totals_t;
+
+static double elapsed_wall_ms(const struct timespec *start, const struct timespec *end)
+{
+    return (end->tv_sec - start->tv_sec) * 1000.0
+         + (end->tv_nsec - start->tv_nsec) / 1e6;
+}
+
+static int build_project_relative_path(char *buffer, size_t size, const char *relative_suffix)
+{
+    char exe_path[MAX_RUNTIME_PATH];
+    char *cursor = NULL;
+    ssize_t length = readlink("/proc/self/exe", exe_path, sizeof(exe_path) - 1);
+
+    if (length < 0) {
+        perror("readlink(/proc/self/exe)");
+        return -1;
+    }
+
+    exe_path[length] = '\0';
+
+    cursor = strrchr(exe_path, '/');
+    if (cursor == NULL) {
+        fprintf(stderr, "failed to resolve executable directory\n");
+        return -1;
+    }
+    *cursor = '\0';
+
+    cursor = strrchr(exe_path, '/');
+    if (cursor == NULL) {
+        fprintf(stderr, "failed to resolve project directory\n");
+        return -1;
+    }
+    *cursor = '\0';
+
+    if (snprintf(buffer, size, "%s/%s", exe_path, relative_suffix) >= (int)size) {
+        fprintf(stderr, "resolved path is too long: %s\n", relative_suffix);
+        return -1;
+    }
+
+    return 0;
+}
+
+static int write_profile_summary(const timing_totals_t *totals, int batch_size, int total, double wall_ms)
+{
+    char profile_path[MAX_RUNTIME_PATH];
+    FILE *stream = NULL;
+    double throughput = wall_ms > 0.0 ? (1000.0 * total) / wall_ms : 0.0;
+    double kernel_ms = totals->synd_ms + totals->bm_ms + totals->chien_ms;
+    double transfer_ms = totals->h2d_ms + totals->d2h_ms;
+    double overhead_ms = wall_ms - (kernel_ms + transfer_ms);
+
+    if (build_project_relative_path(
+            profile_path,
+            sizeof(profile_path),
+            "results/profile/Profile_GPU_optimised_348864.txt") != 0) {
+        return 1;
+    }
+
+    stream = fopen(profile_path, "w");
+
+    if (stream == NULL) {
+        perror("failed to open GPU optimised profile output");
+        return 1;
+    }
+
+    fprintf(
+        stream,
+        "===== %s =====\n"
+        "ciphertexts processed : %d\n"
+        "batch size            : %d\n"
+        "H2D                   : %.3f ms\n"
+        "syndrome              : %.3f ms\n"
+        "Berlekamp-Massey      : %.3f ms\n"
+        "Chien search          : %.3f ms\n"
+        "D2H                   : %.3f ms\n"
+        "wall                  : %.3f ms\n"
+        "overhead              : %.3f ms\n"
+        "throughput            : %.2f ct/s\n",
+        profile_label,
+        total,
+        batch_size,
+        totals->h2d_ms,
+        totals->synd_ms,
+        totals->bm_ms,
+        totals->chien_ms,
+        totals->d2h_ms,
+        wall_ms,
+        overhead_ms,
+        throughput);
+
+    fclose(stream);
+    return 0;
+}
 
 
 
@@ -228,7 +337,7 @@ __global__ void warp_chien_search_kernel(
  * Process the full ciphertext batch in host-sized chunks so the packed CUDA
  * data structures remain bounded and easy to map back to the CPU output.
  */
-void decrypt(unsigned char (*ciphertexts)[crypto_kem_CIPHERTEXTBYTES]) {
+int decrypt(unsigned char (*ciphertexts)[crypto_kem_CIPHERTEXTBYTES]) {
     const int total        = KATNUM;
     const int batchSize    = BATCH_SIZE;
     const int tpb          = 128;                 // threads/block (multiple of 32)
@@ -240,6 +349,12 @@ void decrypt(unsigned char (*ciphertexts)[crypto_kem_CIPHERTEXTBYTES]) {
     uint32_t     *d_err;
     uint32_t     *h_err;
     gf           *h_loc;
+    timing_totals_t totals = {};
+    struct timespec wall_start;
+    struct timespec wall_end;
+    struct timespec stage_start;
+    struct timespec stage_end;
+    int status = 0;
 
     cudaMalloc(&d_ct,       batchSize * crypto_kem_CIPHERTEXTBYTES);
     cudaMalloc(&d_syn,      batchSize * 2 * SYS_T * sizeof(gf));
@@ -249,31 +364,45 @@ void decrypt(unsigned char (*ciphertexts)[crypto_kem_CIPHERTEXTBYTES]) {
     cudaMallocHost(&h_loc, (SYS_T + 1) * batchSize * sizeof(gf));
 
     int batchCount = (total + batchSize - 1) / batchSize;
+    clock_gettime(CLOCK_MONOTONIC, &wall_start);
 
     for (int b = 0; b < batchCount; ++b) {
         int offset      = b * batchSize;
         int actualBatch = (offset + batchSize > total) ? (total - offset) : batchSize;
+        float h2d_ms = 0.0f;
+        float synd_ms = 0.0f;
+        float bm_ms = 0.0f;
+        float chien_ms = 0.0f;
+        float d2h_ms = 0.0f;
 
+        clock_gettime(CLOCK_MONOTONIC, &stage_start);
         cudaMemcpy(d_ct, &ciphertexts[offset],
                    actualBatch * crypto_kem_CIPHERTEXTBYTES,
                    cudaMemcpyHostToDevice);
+        clock_gettime(CLOCK_MONOTONIC, &stage_end);
+        h2d_ms = (float)elapsed_wall_ms(&stage_start, &stage_end);
         cudaMemset(d_err, 0, actualBatch * wordPerBatch * sizeof(uint32_t));
 
 
-           {
-       // each block handles one ciphertext
-       dim3 gridSyn(actualBatch,1,1);
-       // no dynamic shared‑size here (uses static __shared__ arrays)
-       SyndromeKernel<<<gridSyn,256,0>>>(
-           d_inverse_elements,
-           d_ct,
-           d_syn
-       );
-   }
+        clock_gettime(CLOCK_MONOTONIC, &stage_start);
+        {
+            dim3 gridSyn(actualBatch,1,1);
+            SyndromeKernel<<<gridSyn,256,0>>>(
+                d_inverse_elements,
+                d_ct,
+                d_syn
+            );
+        }
+        cudaDeviceSynchronize();
+        clock_gettime(CLOCK_MONOTONIC, &stage_end);
+        synd_ms = (float)elapsed_wall_ms(&stage_start, &stage_end);
         // 2) BM
 
+        clock_gettime(CLOCK_MONOTONIC, &stage_start);
         berlekampMasseyKernel<<< dim3(1, actualBatch), 96 >>>(d_syn, d_loc_soa);
         cudaDeviceSynchronize();
+        clock_gettime(CLOCK_MONOTONIC, &stage_end);
+        bm_ms = (float)elapsed_wall_ms(&stage_start, &stage_end);
 
         // 3) Warp Chien
         int blocks = (actualBatch + warps_per_bl - 1) / warps_per_bl;
@@ -281,13 +410,25 @@ void decrypt(unsigned char (*ciphertexts)[crypto_kem_CIPHERTEXTBYTES]) {
         dim3 block(tpb,   1, 1);
         size_t shmem = warps_per_bl * (SYS_T + 1) * sizeof(gf);
 
+        clock_gettime(CLOCK_MONOTONIC, &stage_start);
         warp_chien_search_kernel<<<grid, block, shmem>>>(d_loc_soa, d_err, actualBatch);
         cudaDeviceSynchronize();
+        clock_gettime(CLOCK_MONOTONIC, &stage_end);
+        chien_ms = (float)elapsed_wall_ms(&stage_start, &stage_end);
 
+        clock_gettime(CLOCK_MONOTONIC, &stage_start);
         cudaMemcpy(h_err, d_err,
                    actualBatch * wordPerBatch * sizeof(uint32_t),
                    cudaMemcpyDeviceToHost);
         cudaDeviceSynchronize();
+        clock_gettime(CLOCK_MONOTONIC, &stage_end);
+        d2h_ms = (float)elapsed_wall_ms(&stage_start, &stage_end);
+
+        totals.h2d_ms += h2d_ms;
+        totals.synd_ms += synd_ms;
+        totals.bm_ms += bm_ms;
+        totals.chien_ms += chien_ms;
+        totals.d2h_ms += d2h_ms;
 
 #if WRITE_ERRORSTREAM
         {
@@ -320,8 +461,11 @@ void decrypt(unsigned char (*ciphertexts)[crypto_kem_CIPHERTEXTBYTES]) {
     cudaFree(d_err);
     cudaFreeHost(h_err);
     cudaFreeHost(h_loc);
+    cudaDeviceSynchronize();
+    clock_gettime(CLOCK_MONOTONIC, &wall_end);
+    status = write_profile_summary(&totals, batchSize, total, elapsed_wall_ms(&wall_start, &wall_end));
     cudaDeviceReset();
-
+    return status;
 }
 
 
@@ -337,7 +481,10 @@ int main(void)
     compute_inverses();
     InitializeC();
 
-    decrypt(ciphertexts);
+    if (decrypt(ciphertexts) != 0) {
+        cudaDeviceReset();
+        return 1;
+    }
     cudaDeviceReset();
     return 0;
 }
