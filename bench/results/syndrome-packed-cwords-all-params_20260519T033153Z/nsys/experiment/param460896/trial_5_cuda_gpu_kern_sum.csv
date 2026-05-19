@@ -1,0 +1,4 @@
+Time (%),Total Time (ns),Instances,Avg (ns),Med (ns),Min (ns),Max (ns),StdDev (ns),Name
+77.9,80869958,1,80869958.0,80869958.0,80869958,80869958,0.0,"warp_chien_search_kernel(const unsigned short *, unsigned int *, int)"
+13.1,13618158,1,13618158.0,13618158.0,13618158,13618158,0.0,"berlekampMasseyKernel(const unsigned short *, unsigned short *)"
+8.9,9268438,1,9268438.0,9268438.0,9268438,9268438,0.0,"SyndromeKernel(const unsigned short *, const unsigned char *, unsigned short *)"

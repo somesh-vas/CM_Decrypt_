@@ -1,0 +1,17 @@
+88:          The memory access pattern for shared stores might not be optimal and causes on average a 1.1 - way bank       
+89:          conflict across all 400000 shared store requests.This results in 58553 bank conflicts,  which represent       
+90:          12.77% of the overall 458558 wavefronts for shared stores. Check the Source Counters section for uncoalesced  
+91:          shared stores.                                                                                                
+99:    No Eligible                            %        38.59
+101:    Eligible Warps Per Scheduler        warp         1.50
+115:          On average, each warp of this workload spends 8.5 cycles being stalled waiting for a scoreboard dependency on 
+120:          used data to shared memory. This stall type represents about 43.6% of the total average of 19.4 cycles        
+145:    Registers Per Thread             register/thread              22
+146:    Shared Memory Configuration Size           Kbyte           16.38
+147:    Driver Shared Memory Per Block       Kbyte/block            1.02
+148:    Dynamic Shared Memory Per Block       byte/block               0
+149:    Static Shared Memory Per Block        byte/block             544
+165:    Block Limit Shared Mem                block            9
+169:    Achieved Occupancy                        %        99.30
+200:          This kernel has uncoalesced global accesses resulting in a total of 925000 excessive sectors (0% of the total 
+201:          750725000 sectors). Check the L2 Theoretical Sectors Global Excessive table for the primary source            

@@ -1,0 +1,13 @@
+WARNING: CPU context switch tracing not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+Error opening optimised GPU test vectors: No such file or directory
+fopen("../../results/output/errorstream0_6688128.bin"): No such file or directory
+Collecting data...
+Generating '/home/someshva/nsys-report-388e.qdstrm'
+[1/1] [0%                          ] nsys_baseline_fix_6688128_trial_4_2739319.nsys-rep[1/1] [0%                          ] nsys_baseline_fix_6688128_trial_4_2739319.nsys-rep[1/1] [6%                          ] nsys_baseline_fix_6688128_trial_4_2739319.nsys-rep[1/1] [===========51%              ] nsys_baseline_fix_6688128_trial_4_2739319.nsys-rep[1/1] [=======================95%  ] nsys_baseline_fix_6688128_trial_4_2739319.nsys-rep[1/1] [=======================96%  ] nsys_baseline_fix_6688128_trial_4_2739319.nsys-rep[1/1] [========================100%] nsys_baseline_fix_6688128_trial_4_2739319.nsys-rep[1/1] [========================100%] nsys_baseline_fix_6688128_trial_4_2739319.nsys-rep
+Generated:
+    /tmp/nsys_baseline_fix_6688128_trial_4_2739319.nsys-rep
+Generating SQLite file /tmp/nsys_baseline_fix_6688128_trial_4_2739319.sqlite from /tmp/nsys_baseline_fix_6688128_trial_4_2739319.nsys-rep
+Processing [/tmp/nsys_baseline_fix_6688128_trial_4_2739319.sqlite] with [/opt/nvidia/nsight-systems/2024.6.2/host-linux-x64/reports/cuda_gpu_kern_sum.py] to [/home/someshva/someshvas/CM_Decrypt__codex_bench/bench/results/syndrome-packed-cwords-all-params_20260519T033153Z/nsys/baseline/param6688128/trial_4_cuda_gpu_kern_sum.csv]... PROCESSED
+

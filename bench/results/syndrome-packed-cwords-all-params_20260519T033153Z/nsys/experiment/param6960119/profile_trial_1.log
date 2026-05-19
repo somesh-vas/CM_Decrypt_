@@ -1,0 +1,11 @@
+WARNING: CPU context switch tracing not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+Collecting data...
+Generating '/home/someshva/nsys-report-de26.qdstrm'
+[1/1] [0%                          ] nsys_experiment_6960119_trial_1_2736287.nsys-rep[1/1] [0%                          ] nsys_experiment_6960119_trial_1_2736287.nsys-rep[1/1] [5%                          ] nsys_experiment_6960119_trial_1_2736287.nsys-rep[1/1] [7%                          ] nsys_experiment_6960119_trial_1_2736287.nsys-rep[1/1] [9%                          ] nsys_experiment_6960119_trial_1_2736287.nsys-rep[1/1] [===========52%              ] nsys_experiment_6960119_trial_1_2736287.nsys-rep[1/1] [=======================95%  ] nsys_experiment_6960119_trial_1_2736287.nsys-rep[1/1] [=======================96%  ] nsys_experiment_6960119_trial_1_2736287.nsys-rep[1/1] [========================100%] nsys_experiment_6960119_trial_1_2736287.nsys-rep[1/1] [========================100%] nsys_experiment_6960119_trial_1_2736287.nsys-rep
+Generated:
+    /tmp/nsys_experiment_6960119_trial_1_2736287.nsys-rep
+Generating SQLite file /tmp/nsys_experiment_6960119_trial_1_2736287.sqlite from /tmp/nsys_experiment_6960119_trial_1_2736287.nsys-rep
+Processing [/tmp/nsys_experiment_6960119_trial_1_2736287.sqlite] with [/opt/nvidia/nsight-systems/2024.6.2/host-linux-x64/reports/cuda_gpu_kern_sum.py] to [bench/results/syndrome-packed-cwords-all-params_20260519T033153Z/nsys/experiment/param6960119/trial_1_cuda_gpu_kern_sum.csv]... PROCESSED
+

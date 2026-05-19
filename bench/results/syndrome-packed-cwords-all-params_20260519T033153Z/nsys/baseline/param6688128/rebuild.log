@@ -1,0 +1,6 @@
+make: Entering directory '/tmp/cmdecrypt_baseline_allparams_2733712'
+===== GPU-Optimised Output (PARAM=6688128, KATNUM=50000, ARCH=sm_75) =====
+===== Output param6688128 (ARCH=sm_75, KATNUM=50000) =====
+Output stream stored at:   ../../results/output/errorstream0_6688128.bin
+Profile details stored at: ../../results/profile/Profile_GPU_optimised_6688128.txt
+make: Leaving directory '/tmp/cmdecrypt_baseline_allparams_2733712'
