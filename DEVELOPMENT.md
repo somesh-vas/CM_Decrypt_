@@ -32,14 +32,13 @@ repository.
 
 ## Final Metrics
 
-Lightweight final metrics and comparison summaries are retained in:
+The tracked final metric artifact is:
 
-- `bench/results/final-1m-benchmark_20260521_214553/`
-- `bench/results/final-defense-1m-manual_20260526T083846Z/`
+- `bench/results/final_1m_summary.md`
 
-Only summaries, metrics, and final comparison data should be tracked. Raw logs,
-profiles, generated output streams, and transient run markers should remain
-local.
+Only lightweight 1M summaries should be tracked. Raw logs, profiles, generated
+output streams, large generated files, and transient run markers should remain
+local. Historical 500k result material is not part of the final repository.
 
 ## Generated Artifact Policy
 
