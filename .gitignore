@@ -41,7 +41,12 @@ bench/results/**/outputs/
 bench/results/**/ncu/
 bench/results/**/nsys/
 bench/results/**/ptx/
+
+# Keep benchmark outputs local by default. Only lightweight final summary files
+# listed below are intended to be tracked for professor review.
 bench/results/*
+!bench/results/README.md
+!bench/results/final_1m_summary.md
 
 bench/tools/archive/
 bench/tools/*500k*
