@@ -1,0 +1,119 @@
+Classical McEliece Workspace Notes
+KATNUM = 50000 Example Reference
+
+Purpose
+- This file collects common run examples in one place.
+- All examples below use KATNUM=50000.
+- For KATNUM=50000, each ct_<param>.bin file must contain at least 50000 ciphertexts.
+
+Important prerequisite
+- Generate enough ciphertexts before any CPU or GPU run:
+  cd kem
+  CT_PER_SK=50000 ./generate_all_vectors.sh
+
+Repository-root examples
+- Build everything:
+  make all 50000 sm_86 PARAM=all
+
+- Run CPU + GPU + GPU optimised without forcing GPU errorstream files:
+  make run 50000 sm_86 PARAM=all
+
+- Run CPU + GPU + GPU optimised and generate GPU errorstream files:
+  make output 50000 sm_86 PARAM=all
+
+- Compare CPU vs GPU baseline errorstreams:
+  make compare PARAM=all
+
+- Compare CPU vs GPU optimised errorstreams:
+  make compare-opt PARAM=all
+
+- Full end-to-end flow:
+  make full-profile PARAM=all KATNUM=50000 ARCH=sm_86
+
+Single-parameter examples from repository root
+- CPU only:
+  make cpu-run KATNUM=50000 PARAM=6960119
+
+- GPU baseline with output:
+  make gpu-output KATNUM=50000 ARCH=sm_86 PARAM=6960119
+
+- GPU optimised with output:
+  make gpuopt-output KATNUM=50000 ARCH=sm_86 PARAM=6960119
+
+- Compare one parameter:
+  make compare PARAM=6960119
+  make compare-opt PARAM=6960119
+
+Project-local examples
+- CPU:
+  cd CPU
+  make run KATNUM=50000 PARAM=all
+
+- GPU baseline:
+  cd GPU_Baseline
+  make output KATNUM=50000 ARCH=sm_86 PARAM=all
+
+- GPU optimised:
+  cd GPU_Optimised
+  make output KATNUM=50000 ARCH=sm_86 PARAM=all
+
+Utility examples
+- Full end-to-end helper:
+  python3 utility/full_e2e_profile.py --param all --katnum 50000 --arch sm_86
+
+- Generate full-profile timing text files directly from the GPU binaries:
+  python3 utility/generate_full_profile_txt.py --project both --param all --katnum 50000 --arch sm_86
+
+- Skip clean:
+  python3 utility/full_e2e_profile.py --param all --katnum 50000 --arch sm_86 --skip-clean
+
+- Skip Nsight Compute:
+  python3 utility/full_e2e_profile.py --param all --katnum 50000 --arch sm_86 --skip-ncu
+
+- Dry run:
+  python3 utility/full_e2e_profile.py --param all --katnum 50000 --arch sm_86 --dry-run
+
+- Device and GPU report:
+  ./utility/device_gpu_specs.sh gpu_specs_report.txt
+
+Nsight Compute report examples
+- Generate baseline and optimised reports:
+  python3 generate_ncu_reports.py --project both --param all --katnum 50000 --arch sm_86
+
+- Generate direct full Nsight Compute text reports from the binaries:
+  python3 utility/generate_full_ncu_txt.py --project both --param all --katnum 50000 --arch sm_86
+
+- Baseline only:
+  python3 generate_ncu_reports.py --project baseline --param all --katnum 50000 --arch sm_86
+
+- Optimised only:
+  python3 generate_ncu_reports.py --project optimised --param all --katnum 50000 --arch sm_86
+
+If vectors are already present
+- If your current ct_<param>.bin files already contain enough ciphertexts, you do not need to regenerate them.
+- If they do not, regenerate with:
+  cd kem
+  CT_PER_SK=50000 ./generate_all_vectors.sh
+
+Common output locations
+- Shared input vectors:
+  kem/test_vectors/Cipher_Sk/ct_<param>.bin
+  kem/test_vectors/Cipher_Sk/sk_<param>.bin
+
+- CPU errorstreams:
+  CPU/results/output/errorstream0_<param>.bin
+
+- GPU baseline errorstreams:
+  GPU_Baseline/results/output/errorstream0_<param>.bin
+
+- GPU optimised errorstreams:
+  GPU_Optimised/results/output/errorstream0_<param>.bin
+
+- Full-profile mirrored text output:
+  full_profile_txt/
+
+Notes
+- KATNUM=50000 is a large run and can take substantial time and disk space.
+- `make run` does not force GPU errorstream generation.
+- `make output` is the safer choice when you want compare-ready GPU output files.
+- `compare` and `compare-opt` only compare files that already exist.
