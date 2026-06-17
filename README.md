@@ -27,7 +27,7 @@ and report final 1,000,000-ciphertext benchmark metrics for thesis review.
 - `kem/`: Classic McEliece KEM code used to generate ciphertext and secret-key fixtures.
 - `utility/`: helper scripts for environment and profiling workflows.
 - `bench/tools/`: final 1M benchmark and parsing tools.
-- `bench/results/`: lightweight final benchmark summaries and cleanup audit reports.
+- `bench/results/`: lightweight final 1M summaries only.
 
 Generated binaries, raw output streams, build directories, logs, profiler
 reports, and local export folders are intentionally excluded from Git.
@@ -48,10 +48,11 @@ appropriate for the target GPU.
 
 Generate shared ciphertext and secret-key inputs before running CPU or GPU
 decryption. Choose `CT_PER_SK` at least as large as the `KATNUM` used later.
+For the final 1M benchmark, generate enough vectors for `KATNUM=1000000`.
 
 ```bash
 cd kem
-CT_PER_SK=1000 ./generate_all_vectors.sh
+CT_PER_SK=1000000 ./generate_all_vectors.sh
 cd ..
 ```
 
@@ -96,18 +97,25 @@ The final manual benchmark driver is:
 bench/tools/run_final_defense_1m_manual.sh
 ```
 
+Example for one parameter set:
+
+```bash
+bench/tools/run_final_defense_1m_manual.sh --state cpu --param 6960119 --katnum 1000000 --chunk-size 50000
+bench/tools/run_final_defense_1m_manual.sh --state gpu-baseline --param 6960119 --katnum 1000000 --chunk-size 50000 --arch sm_75
+bench/tools/run_final_defense_1m_manual.sh --state gpu-optimized --param 6960119 --katnum 1000000 --chunk-size 50000 --arch sm_75
+```
+
 This script expects the required vectors and CUDA environment to already be
-available. It is retained for reproducibility, but benchmark outputs are not
-regenerated as part of repository cleanup.
+available. It is retained for reproducibility, but raw benchmark outputs are not
+tracked in Git.
 
 ## Final Metrics
 
-Lightweight final 1,000,000-ciphertext results are kept under:
+The professor-facing final 1,000,000-ciphertext summary is kept here:
 
 ```text
-bench/results/final-1m-benchmark_20260521_214553/
-bench/results/final-defense-1m-manual_20260526T083846Z/
+bench/results/final_1m_summary.md
 ```
 
-These folders keep summary, metrics, and comparison files only. Raw logs,
-profiles, generated binaries, and output streams are excluded from Git.
+Raw logs, profiles, generated binaries, and output streams are excluded from
+Git. Re-run the benchmark locally if fresh machine-specific timings are needed.
